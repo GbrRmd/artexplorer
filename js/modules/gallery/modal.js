@@ -1,0 +1,113 @@
+// =============================================================
+//  Modale de fiche détaillée d'une œuvre.
+//  Ouverture animée, fermeture par croix / clic hors panneau /
+//  touche Échap. Piège le focus a minima et restaure le focus.
+// =============================================================
+
+import { el, haptic } from '../../core/utils.js';
+import { mediaMarkup } from './media.js';
+
+let activeModal = null;
+let lastFocused = null;
+
+export function openModal(art) {
+  if (activeModal) closeModal();
+  haptic(12);
+  lastFocused = document.activeElement;
+
+  const media = el('div', {
+    class: 'modal__media',
+    style: `--fallback:${art.dominantColor || '#333'}`,
+    html: mediaMarkup(art, { size: 'large' }),
+  });
+
+  const tags = el(
+    'div',
+    { class: 'modal__tags' },
+    [
+      el('span', { class: 'pill', text: `🗓️ ${art.year}` }),
+      el('span', { class: 'pill', text: `🎨 ${art.technique}` }),
+      ...(art.themes || []).map((t) => el('span', { class: 'pill', text: `#${t}` })),
+    ]
+  );
+
+  const content = el('div', { class: 'modal__content' }, [
+    el('h2', { class: 'modal__title', id: 'modal-title', text: art.title }),
+    el('p', { class: 'modal__artist', text: art.artist }),
+    el('p', { class: 'modal__desc', text: art.description || '' }),
+    tags,
+  ]);
+
+  const closeBtn = el('button', {
+    class: 'modal__close',
+    type: 'button',
+    'aria-label': 'Fermer',
+    html: '&times;',
+    onClick: closeModal,
+  });
+
+  const panel = el(
+    'div',
+    { class: 'modal__panel glass--lit', role: 'document' },
+    [closeBtn, media, content]
+  );
+
+  const backdrop = el('div', { class: 'modal__backdrop', onClick: closeModal });
+
+  const modal = el(
+    'div',
+    {
+      class: 'modal',
+      role: 'dialog',
+      'aria-modal': 'true',
+      'aria-labelledby': 'modal-title',
+    },
+    [backdrop, panel]
+  );
+
+  document.body.append(modal);
+  document.body.style.overflow = 'hidden';
+  activeModal = modal;
+
+  // Active le chargement de l'image de la modale
+  wireModalImage(media, art);
+
+  document.addEventListener('keydown', onKeydown);
+  closeBtn.focus();
+}
+
+function wireModalImage(mediaEl, art) {
+  const img = mediaEl.querySelector('img');
+  if (!img) return;
+  img.addEventListener('load', () => img.classList.add('is-loaded'));
+  img.addEventListener('error', () => {
+    img.remove();
+    mediaEl.querySelector('.artcard__fallback')?.style.setProperty('opacity', '0.8');
+  });
+}
+
+function onKeydown(e) {
+  if (e.key === 'Escape') closeModal();
+}
+
+export function closeModal() {
+  if (!activeModal) return;
+  const modal = activeModal;
+  activeModal = null;
+  document.removeEventListener('keydown', onKeydown);
+
+  modal.classList.add('is-closing');
+  const done = () => {
+    modal.remove();
+    document.body.style.overflow = '';
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  };
+  // Attend la fin de l'anim (ou ferme direct si mouvement réduit)
+  const anim = modal.querySelector('.modal__panel');
+  if (anim) {
+    anim.addEventListener('animationend', done, { once: true });
+    setTimeout(done, 400); // filet de sécurité
+  } else {
+    done();
+  }
+}

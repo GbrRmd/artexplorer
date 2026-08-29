@@ -69,3 +69,18 @@ export async function fetchJSON(url) {
 /** Vrai si l'utilisateur préfère un mouvement réduit */
 export const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/** Vrai sur appareil tactile (pas de survol souris fin) */
+export const isTouch = () =>
+  window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+/** Charge une feuille de style de module une seule fois */
+const loadedCSS = new Set();
+export function loadModuleCSS(href) {
+  if (loadedCSS.has(href)) return;
+  loadedCSS.add(href);
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = href;
+  document.head.append(link);
+}

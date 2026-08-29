@@ -1,0 +1,279 @@
+/* =============================================================
+   MODULE GALERIE — styles (cartes, grille, tilt 3D, modale)
+   ============================================================= */
+
+/* --- Grille responsive : 1 -> 2 -> 3 -> 4 colonnes --- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-5);
+}
+
+/* --- Carte œuvre --- */
+.artcard {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-md);
+  /* base du tilt 3D */
+  transform-style: preserve-3d;
+  transition: transform var(--dur-med) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out);
+  will-change: transform;
+  /* apparition en cascade (var --i posée en JS) */
+  animation: card-in var(--dur-slow) var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.artcard:hover {
+  box-shadow: var(--shadow-lg);
+}
+.artcard:active {
+  transform: scale(0.98);
+}
+
+/* Contenu qui "flotte" au-dessus pour l'effet de profondeur */
+.artcard__inner {
+  transform: translateZ(0);
+}
+
+/* --- Média (image + fallback couleur dominante) --- */
+.artcard__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: var(--fallback, #333);
+  background-image: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--fallback, #333) 85%, white 15%),
+    var(--fallback, #333)
+  );
+  overflow: hidden;
+}
+
+.artcard__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+.artcard__img.is-loaded {
+  opacity: 1;
+}
+.artcard:hover .artcard__img.is-loaded {
+  transform: scale(1.06);
+}
+
+/* Emoji de repli quand l'image ne charge pas */
+.artcard__fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 3rem;
+  opacity: 0.7;
+}
+
+/* Reflet mobile (glare) qui suit le doigt/la souris */
+.artcard__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 0%),
+    rgba(255, 255, 255, 0.35),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease-out);
+  mix-blend-mode: overlay;
+}
+.artcard:hover .artcard__glare {
+  opacity: 1;
+}
+
+/* --- Légende --- */
+.artcard__body {
+  position: relative;
+  padding: var(--space-4);
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+}
+.artcard__title {
+  font-size: var(--text-lg);
+  font-weight: 800;
+  color: var(--text-strong);
+  line-height: 1.2;
+}
+.artcard__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.artcard__meta .dot {
+  opacity: 0.5;
+}
+.artcard__tech {
+  position: absolute;
+  top: calc(-1 * var(--space-3));
+  right: var(--space-3);
+}
+
+/* --- Barre d'outils (compteur) --- */
+.gallery-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+.gallery-count {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.gallery-count strong {
+  color: var(--text-strong);
+}
+
+/* =============================================================
+   MODALE — fiche détaillée
+   ============================================================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+}
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: fade-in var(--dur-med) var(--ease-out);
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(920px, 100%);
+  max-height: 90dvh;
+  overflow: auto;
+  border-radius: var(--radius-xl);
+  background: var(--bg-1);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  animation: modal-in var(--dur-med) var(--ease-spring);
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal__media {
+  position: relative;
+  background: var(--fallback, #222);
+  min-height: 320px;
+}
+.modal__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modal__media .artcard__fallback {
+  font-size: 5rem;
+}
+
+.modal__content {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.modal__title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--text-strong);
+  line-height: 1.15;
+}
+.modal__artist {
+  color: var(--brand-1);
+  font-weight: 700;
+  font-size: var(--text-lg);
+}
+[data-theme="dark"] .modal__artist {
+  color: var(--brand-3);
+}
+.modal__desc {
+  color: var(--text);
+  line-height: var(--leading-normal);
+}
+.modal__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
+.modal__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 1.4rem;
+  line-height: 1;
+  transition: transform var(--dur-fast) var(--ease-spring), background var(--dur-fast);
+}
+.modal__close:hover {
+  background: rgba(0, 0, 0, 0.65);
+  transform: rotate(90deg);
+}
+
+.modal.is-closing .modal__backdrop { animation: fade-in var(--dur-med) reverse; }
+.modal.is-closing .modal__panel { animation: modal-in var(--dur-med) reverse; }
+
+/* --- Responsive modale : empilée sur mobile --- */
+@media (max-width: 640px) {
+  .modal__panel {
+    grid-template-columns: 1fr;
+    max-height: 92dvh;
+  }
+  .modal__media {
+    min-height: 240px;
+    aspect-ratio: 4 / 3;
+  }
+  .modal__content {
+    padding: var(--space-5);
+  }
+}
