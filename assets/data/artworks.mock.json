@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "version": 1,
+    "count": 12,
+    "note": "Jeu de données TEST — œuvres du domaine public. Images via Wikimedia (Special:FilePath). Remplacé par Firestore + Cloudinary en Phase 3/4.",
+    "themes": [
+      { "name": "Nuit", "count": 2 },
+      { "name": "Portrait", "count": 3 },
+      { "name": "Nature", "count": 4 },
+      { "name": "Mer", "count": 2 },
+      { "name": "Amour", "count": 2 },
+      { "name": "Histoire", "count": 2 },
+      { "name": "Émotion", "count": 2 }
+    ],
+    "techniques": [
+      { "name": "Huile", "count": 8 },
+      { "name": "Estampe", "count": 1 },
+      { "name": "Tempera", "count": 2 },
+      { "name": "Feuille d'or", "count": 1 }
+    ]
+  },
+  "artworks": [
+    {
+      "id": "van-gogh-nuit-etoilee",
+      "title": "La Nuit étoilée",
+      "artist": "Vincent van Gogh",
+      "year": 1889,
+      "technique": "Huile",
+      "themes": ["Nuit", "Nature", "Émotion"],
+      "dominantColor": "#1b3a63",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Van%20Gogh%20-%20Starry%20Night%20-%20Google%20Art%20Project.jpg?width=800",
+      "description": "Un ciel qui tourbillonne au-dessus d'un village endormi. Van Gogh l'a peinte depuis la fenêtre de sa chambre d'hôpital. Les étoiles semblent bouger : c'est le tableau le plus célèbre du monde de la nuit."
+    },
+    {
+      "id": "vermeer-jeune-fille-perle",
+      "title": "La Jeune Fille à la perle",
+      "artist": "Johannes Vermeer",
+      "year": 1665,
+      "technique": "Huile",
+      "themes": ["Portrait", "Émotion"],
+      "dominantColor": "#0e1c2b",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1665%20Girl%20with%20a%20Pearl%20Earring.jpg?width=800",
+      "description": "On l'appelle « la Joconde du Nord ». Une jeune fille se retourne, une grosse perle brille à son oreille. Personne ne sait qui elle est vraiment : tout le mystère est dans son regard."
+    },
+    {
+      "id": "hokusai-grande-vague",
+      "title": "La Grande Vague de Kanagawa",
+      "artist": "Katsushika Hokusai",
+      "year": 1831,
+      "technique": "Estampe",
+      "themes": ["Mer", "Nature"],
+      "dominantColor": "#1c5a78",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tsunami%20by%20hokusai%2019th%20century.jpg?width=800",
+      "description": "Une vague géante prête à engloutir des barques, avec le mont Fuji minuscule au loin. Cette estampe japonaise a été imprimée à des milliers d'exemplaires : c'est l'image du Japon la plus connue au monde."
+    },
+    {
+      "id": "klimt-le-baiser",
+      "title": "Le Baiser",
+      "artist": "Gustav Klimt",
+      "year": 1908,
+      "technique": "Feuille d'or",
+      "themes": ["Amour", "Portrait"],
+      "dominantColor": "#8a6d1f",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Kiss%20-%20Gustav%20Klimt%20-%20Google%20Cultural%20Institute.jpg?width=800",
+      "description": "Un couple enlacé dans un manteau d'or. Klimt a utilisé de la vraie feuille d'or, comme dans les tableaux religieux. Tout brille, tout est décoratif : c'est l'amour transformé en bijou."
+    },
+    {
+      "id": "monet-impression-soleil-levant",
+      "title": "Impression, soleil levant",
+      "artist": "Claude Monet",
+      "year": 1872,
+      "technique": "Huile",
+      "themes": ["Mer", "Nature"],
+      "dominantColor": "#3d5a6c",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Monet%20-%20Impression%2C%20Sunrise.jpg?width=800",
+      "description": "Un port dans la brume au lever du soleil, peint en taches rapides. C'est ce tableau qui a donné son nom à l'« impressionnisme » — au départ une moquerie de critiques, devenue le mouvement le plus aimé de tous."
+    },
+    {
+      "id": "da-vinci-joconde",
+      "title": "La Joconde",
+      "artist": "Léonard de Vinci",
+      "year": 1503,
+      "technique": "Huile",
+      "themes": ["Portrait"],
+      "dominantColor": "#5a4a2f",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mona%20Lisa%2C%20by%20Leonardo%20da%20Vinci%2C%20from%20C2RMF%20retouched.jpg?width=800",
+      "description": "Le tableau le plus visité de la planète, au Louvre. Son sourire semble changer selon l'angle où on le regarde. Léonard l'a gardé avec lui toute sa vie sans jamais le livrer."
+    },
+    {
+      "id": "munch-le-cri",
+      "title": "Le Cri",
+      "artist": "Edvard Munch",
+      "year": 1893,
+      "technique": "Tempera",
+      "themes": ["Émotion", "Nuit"],
+      "dominantColor": "#b5531f",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Scream.jpg?width=800",
+      "description": "Un personnage se tient les joues, la bouche ouverte, sur un pont, sous un ciel rouge sang. Ce n'est pas lui qui crie : Munch disait entendre « le cri infini de la nature ». L'angoisse en un seul dessin."
+    },
+    {
+      "id": "botticelli-naissance-venus",
+      "title": "La Naissance de Vénus",
+      "artist": "Sandro Botticelli",
+      "year": 1486,
+      "technique": "Tempera",
+      "themes": ["Nature", "Amour"],
+      "dominantColor": "#7c8a6a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sandro%20Botticelli%20-%20La%20nascita%20di%20Venere%20-%20Google%20Art%20Project%20-%20edited.jpg?width=800",
+      "description": "La déesse Vénus arrive sur le rivage debout sur un coquillage, poussée par le vent. Peinte il y a plus de 500 ans à Florence, elle célèbre la beauté idéale de la Renaissance."
+    },
+    {
+      "id": "van-gogh-tournesols",
+      "title": "Les Tournesols",
+      "artist": "Vincent van Gogh",
+      "year": 1888,
+      "technique": "Huile",
+      "themes": ["Nature"],
+      "dominantColor": "#c99a1e",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vincent%20Willem%20van%20Gogh%20127.jpg?width=800",
+      "description": "Un bouquet de tournesols dans un vase, tout en jaune. Van Gogh les a peints pour décorer la chambre de son ami le peintre Gauguin. Le jaune était pour lui la couleur du bonheur et de l'amitié."
+    },
+    {
+      "id": "rembrandt-ronde-de-nuit",
+      "title": "La Ronde de nuit",
+      "artist": "Rembrandt",
+      "year": 1642,
+      "technique": "Huile",
+      "themes": ["Nuit", "Histoire"],
+      "dominantColor": "#3a2c17",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Night%20Watch%20-%20HD.jpg?width=800",
+      "description": "Un groupe de gardes qui se met en marche, saisi en plein mouvement — très rare pour l'époque. La lumière éclaire certains visages et en laisse d'autres dans l'ombre, comme un projecteur de théâtre."
+    },
+    {
+      "id": "renoir-moulin-galette",
+      "title": "Bal du moulin de la Galette",
+      "artist": "Auguste Renoir",
+      "year": 1876,
+      "technique": "Huile",
+      "themes": ["Nature", "Amour"],
+      "dominantColor": "#6b5a7a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pierre-Auguste%20Renoir%2C%20Le%20Moulin%20de%20la%20Galette.jpg?width=800",
+      "description": "Une fête en plein air à Paris, avec des gens qui dansent sous les arbres. Regarde les taches de lumière du soleil qui passent entre les feuilles : Renoir voulait peindre la joie d'un dimanche après-midi."
+    },
+    {
+      "id": "delacroix-liberte-guidant-peuple",
+      "title": "La Liberté guidant le peuple",
+      "artist": "Eugène Delacroix",
+      "year": 1830,
+      "technique": "Huile",
+      "themes": ["Histoire", "Émotion"],
+      "dominantColor": "#5c4632",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eug%C3%A8ne%20Delacroix%20-%20La%20libert%C3%A9%20guidant%20le%20peuple.jpg?width=800",
+      "description": "Une femme qui brandit le drapeau français au-dessus d'une révolution. Ce n'est pas une vraie personne : c'est la Liberté elle-même. Ce tableau est un symbole de la France, on l'a même mis sur des billets."
+    }
+  ]
+}

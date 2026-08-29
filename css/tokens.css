@@ -1,0 +1,128 @@
+/* =============================================================
+   DESIGN SYSTEM — Tokens
+   Variables globales : couleurs, glassmorphism, espacements,
+   typographie, animations. Thème clair/sombre via [data-theme].
+   ============================================================= */
+
+:root {
+  /* --- Échelle d'espacement (base 4px) --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+
+  /* --- Rayons --- */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-full: 999px;
+
+  /* --- Typographie --- */
+  --font-sans: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Segoe UI", system-ui, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 2.75rem;
+  --text-4xl: 3.5rem;
+  --leading-tight: 1.15;
+  --leading-normal: 1.6;
+
+  /* --- Couleurs de marque (accents, communs aux 2 thèmes) --- */
+  --brand-1: #7c5cff; /* violet */
+  --brand-2: #ff5c8a; /* rose */
+  --brand-3: #22d3ee; /* cyan */
+  --brand-4: #ffb347; /* ambre */
+  --gradient-brand: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  --gradient-cool: linear-gradient(135deg, var(--brand-1), var(--brand-3));
+  --gradient-warm: linear-gradient(135deg, var(--brand-2), var(--brand-4));
+
+  /* --- Timings & courbes d'animation --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* rebond doux */
+  --dur-fast: 140ms;
+  --dur-med: 260ms;
+  --dur-slow: 480ms;
+
+  /* --- Ombres --- */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.18);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.28);
+
+  /* --- Z-index --- */
+  --z-bg: 0;
+  --z-content: 10;
+  --z-nav: 100;
+  --z-modal: 1000;
+}
+
+/* =============================================================
+   THÈME SOMBRE (par défaut)
+   ============================================================= */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-0: #0b0d1a;
+  --bg-1: #121428;
+  --text-strong: #f5f6ff;
+  --text: #d6d9f0;
+  --text-muted: #9aa0c9;
+
+  /* Surfaces "verre" (glassmorphism) */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-strong: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.25);
+  --glass-blur: 16px;
+
+  /* Halos ambiants du fond */
+  --ambient-1: rgba(124, 92, 255, 0.45);
+  --ambient-2: rgba(255, 92, 138, 0.38);
+  --ambient-3: rgba(34, 211, 238, 0.32);
+}
+
+/* =============================================================
+   THÈME CLAIR
+   ============================================================= */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-0: #eef1fb;
+  --bg-1: #f7f8ff;
+  --text-strong: #16182e;
+  --text: #2f3352;
+  --text-muted: #6b7099;
+
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-highlight: rgba(255, 255, 255, 0.95);
+  --glass-blur: 18px;
+
+  --ambient-1: rgba(124, 92, 255, 0.35);
+  --ambient-2: rgba(255, 92, 138, 0.3);
+  --ambient-3: rgba(34, 211, 238, 0.28);
+}
+
+/* =============================================================
+   Accessibilité : respect du mouvement réduit
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,169 @@
+/* =============================================================
+   COMPOSANTS réutilisables — surfaces verre, boutons, etc.
+   Partagés par tous les modules.
+   ============================================================= */
+
+/* --- Surface "verre" générique --- */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Reflet lumineux en haut de la surface */
+.glass--lit {
+  position: relative;
+}
+.glass--lit::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 40%;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    var(--glass-highlight),
+    transparent
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* --- Bouton icône (thème, actions rapides) --- */
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  color: var(--text-strong);
+  transition: transform var(--dur-fast) var(--ease-spring),
+    background var(--dur-fast);
+}
+.icon-btn:hover {
+  background: var(--glass-bg-strong);
+  transform: translateY(-2px);
+}
+.icon-btn:active {
+  transform: scale(0.9);
+}
+.icon-btn .icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* Le soleil/lune bascule avec une petite rotation */
+.icon-btn .icon {
+  transition: transform var(--dur-med) var(--ease-spring);
+}
+.icon-btn:hover .icon {
+  transform: rotate(25deg);
+}
+
+/* --- Pilule / badge --- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+}
+
+/* --- Bouton principal --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  color: white;
+  background: var(--gradient-brand);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-fast);
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* --- État vide / placeholder de module --- */
+.placeholder {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: var(--space-4);
+  padding: var(--space-10) var(--space-5);
+  min-height: 50vh;
+}
+.placeholder__emoji {
+  font-size: 4rem;
+  animation: bob 3s var(--ease-out) infinite alternate;
+}
+@keyframes bob {
+  to { transform: translateY(-10px); }
+}
+.placeholder h2 {
+  font-size: var(--text-2xl);
+}
+.placeholder p {
+  color: var(--text-muted);
+  max-width: 40ch;
+}
+
+/* --- En-tête de section de module --- */
+.module-head {
+  margin-bottom: var(--space-6);
+}
+.module-head__title {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.module-head__subtitle {
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+  margin-top: var(--space-2);
+}
+
+/* --- Utilitaire : accessibilité lecteur d'écran --- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  .module-head__title {
+    font-size: var(--text-2xl);
+  }
+  .module-head__subtitle {
+    font-size: var(--text-base);
+  }
+}

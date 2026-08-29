@@ -1,0 +1,19 @@
+# Dépendances (on n'en a pas, mais au cas où)
+node_modules/
+package-lock.json
+
+# Secrets / config locale réelle
+config.local.js
+*.env
+.env*
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Build / temp
+dist/
+*.log
