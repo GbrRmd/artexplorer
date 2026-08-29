@@ -121,6 +121,18 @@ export function createFilterBar(data, onChange) {
     onChange(artworks.filter(matches));
   }
 
+  // Sélectionne un seul thème (piloté depuis la constellation) :
+  // on repart propre puis on plonge dans cet univers.
+  function selectTheme(name) {
+    state.q = '';
+    search.value = '';
+    state.themes.clear();
+    state.techniques.clear();
+    if (themeChips.has(name)) state.themes.add(name);
+    syncPressed();
+    apply();
+  }
+
   const bar = el('div', { class: 'filterbar glass glass--lit' }, [
     el('div', { class: 'filterbar__search' }, [
       el('span', { class: 'filter-search__icon', html: SEARCH_ICON }),
@@ -139,5 +151,5 @@ export function createFilterBar(data, onChange) {
 
   updateCounts();
 
-  return { el: bar };
+  return { el: bar, selectTheme };
 }

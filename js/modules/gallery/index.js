@@ -11,6 +11,7 @@ import { mediaMarkup, wireImage } from './media.js';
 import { attachTilt } from './card-tilt.js';
 import { openModal } from './modal.js';
 import { createFilterBar } from './filters.js';
+import { createConstellation } from './constellation.js';
 
 const ICON = `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>`;
 
@@ -64,9 +65,8 @@ export default {
 
 function renderGallery(body, artworks) {
   const total = artworks.length;
-
-  // Compteur de résultats
   const count = el('div', { class: 'gallery-count' });
+  const grid = el('div', { class: 'gallery-grid' });
 
   // Barre de recherche + filtres : re-rend la grille à chaque changement
   const filters = createFilterBar({ artworks, meta: data.meta }, (filtered) => {
@@ -74,16 +74,42 @@ function renderGallery(body, artworks) {
     updateCount(count, filtered.length, total);
   });
 
-  const grid = el('div', { class: 'gallery-grid' });
+  // Vue Constellation : taper un univers -> filtre ce thème + retour grille
+  const constellation = createConstellation(data.meta?.themes || [], (theme) => {
+    filters.selectTheme(theme);
+    setView('grid');
+    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 
-  body.append(
+  // Sous-vues
+  const gridWrap = el('div', {}, [
     filters.el,
     el('div', { class: 'gallery-toolbar' }, [count]),
-    grid
-  );
+    grid,
+  ]);
+  const constWrap = constellation.el;
 
+  // Sélecteur de vue (Grille / Constellation)
+  const gridBtn = el('button', { class: 'view-switch__btn', type: 'button', text: '🎨 Grille' });
+  const constBtn = el('button', { class: 'view-switch__btn', type: 'button', text: '✨ Constellation' });
+
+  function setView(mode) {
+    const isGrid = mode === 'grid';
+    gridWrap.style.display = isGrid ? '' : 'none';
+    constWrap.style.display = isGrid ? 'none' : '';
+    gridBtn.setAttribute('aria-pressed', String(isGrid));
+    constBtn.setAttribute('aria-pressed', String(!isGrid));
+    haptic(8);
+  }
+  gridBtn.addEventListener('click', () => setView('grid'));
+  constBtn.addEventListener('click', () => setView('constellation'));
+
+  const switcher = el('div', { class: 'view-switch', role: 'tablist', 'aria-label': "Mode d'exploration" }, [gridBtn, constBtn]);
+
+  body.append(switcher, gridWrap, constWrap);
   updateGrid(grid, artworks);
   updateCount(count, total, total);
+  setView('grid');
 }
 
 function updateCount(node, shown, total) {
