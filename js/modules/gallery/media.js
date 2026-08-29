@@ -14,9 +14,17 @@ function esc(s = '') {
 export function mediaMarkup(art, { size = 'card' } = {}) {
   const alt = esc(`${art.title} — ${art.artist}`);
   const loading = size === 'large' ? 'eager' : 'lazy';
+  // Fond flouté (grande image seulement) : quand l'œuvre ne remplit pas
+  // tout le cadre, le pourtour est un prolongement flou de l'œuvre plutôt
+  // qu'une couleur plate ambiguë.
+  const backdrop =
+    size === 'large'
+      ? `<div class="modal__media-bg" style="background-image:url('${esc(art.imageUrl)}')"></div>`
+      : '';
   // Le repli est placé DERRIÈRE l'image : visible pendant le chargement
   // ou en cas d'erreur, mais recouvert dès que l'image est chargée.
   return (
+    backdrop +
     `<div class="artcard__fallback" aria-hidden="true">🖼️</div>` +
     `<img class="artcard__img" src="${esc(art.imageUrl)}" alt="${alt}" loading="${loading}" decoding="async" />`
   );

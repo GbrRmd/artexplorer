@@ -118,6 +118,28 @@ function updateGrid(grid, artworks) {
   });
 }
 
+// Ouvre une œuvre avec ses œuvres liées (navigation nodale : on saute
+// d'œuvre en œuvre en suivant les thèmes/technique partagés).
+function openArt(art) {
+  openModal(art, { related: relatedTo(art), onSelect: openArt });
+}
+
+// Œuvres liées : score = thèmes partagés (+1 si même technique).
+function relatedTo(art) {
+  return (data.artworks || [])
+    .filter((a) => a.id !== art.id)
+    .map((a) => ({
+      a,
+      score:
+        a.themes.filter((t) => art.themes.includes(t)).length +
+        (a.technique === art.technique ? 1 : 0),
+    }))
+    .filter((x) => x.score > 0)
+    .sort((x, y) => y.score - x.score)
+    .slice(0, 6)
+    .map((x) => x.a);
+}
+
 function buildCard(art, index) {
   const media = el('div', {
     class: 'artcard__media',
@@ -136,7 +158,7 @@ function buildCard(art, index) {
 
   const open = () => {
     haptic(10);
-    openModal(art);
+    openArt(art);
   };
 
   const card = el(

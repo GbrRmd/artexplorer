@@ -5,15 +5,26 @@
 // =============================================================
 
 import { el, haptic } from '../../core/utils.js';
-import { mediaMarkup } from './media.js';
+import { mediaMarkup, wireImage } from './media.js';
 
 let activeModal = null;
 let lastFocused = null;
 
-export function openModal(art) {
-  if (activeModal) closeModal();
+/**
+ * Ouvre la fiche détaillée d'une œuvre.
+ * @param {object} art
+ * @param {object} [opts]
+ * @param {Array}  [opts.related]  œuvres liées (navigation nodale)
+ * @param {Function}[opts.onSelect] appelé quand on clique une œuvre liée
+ */
+export function openModal(art, opts = {}) {
+  const { related = [], onSelect = null } = opts;
   haptic(12);
-  lastFocused = document.activeElement;
+  // Saut vers une œuvre liée : on retire l'ancienne modale immédiatement
+  // (sans animation ni déverrouillage du scroll). Sinon on mémorise le
+  // focus de départ pour le restaurer à la fermeture finale.
+  if (activeModal) hardClose();
+  else lastFocused = document.activeElement;
 
   const media = el('div', {
     class: 'modal__media',
@@ -49,12 +60,51 @@ export function openModal(art) {
     ]
   );
 
-  const content = el('div', { class: 'modal__content' }, [
+  const contentChildren = [
     el('h2', { class: 'modal__title', id: 'modal-title', text: art.title }),
     el('p', { class: 'modal__artist', text: art.artist }),
     el('p', { class: 'modal__desc', text: art.description || '' }),
     tags,
-  ]);
+  ];
+
+  // --- Navigation nodale : "Dans le même esprit" ---
+  if (related.length && onSelect) {
+    const list = el(
+      'div',
+      { class: 'related-list' },
+      related.map((other) =>
+        el(
+          'button',
+          {
+            class: 'related-item',
+            type: 'button',
+            title: `${other.title} — ${other.artist}`,
+            'aria-label': `Voir « ${other.title} » de ${other.artist}`,
+            onClick: () => {
+              haptic(10);
+              onSelect(other);
+            },
+          },
+          [
+            el('span', {
+              class: 'related-item__media',
+              style: `--fallback:${other.dominantColor || '#333'}`,
+              html: mediaMarkup(other, { size: 'card' }),
+            }),
+            el('span', { class: 'related-item__title', text: other.title }),
+          ]
+        )
+      )
+    );
+    contentChildren.push(
+      el('div', { class: 'modal__related' }, [
+        el('span', { class: 'modal__related-label', text: '✨ Dans le même esprit' }),
+        list,
+      ])
+    );
+  }
+
+  const content = el('div', { class: 'modal__content' }, contentChildren);
 
   const closeBtn = el('button', {
     class: 'modal__close',
@@ -87,25 +137,24 @@ export function openModal(art) {
   document.body.style.overflow = 'hidden';
   activeModal = modal;
 
-  // Active le chargement de l'image de la modale
-  wireModalImage(media, art);
+  // Active le chargement des images (grande image + vignettes liées)
+  wireImage(modal);
 
   document.addEventListener('keydown', onKeydown);
   closeBtn.focus();
 }
 
-function wireModalImage(mediaEl, art) {
-  const img = mediaEl.querySelector('img');
-  if (!img) return;
-  img.addEventListener('load', () => img.classList.add('is-loaded'));
-  img.addEventListener('error', () => {
-    img.remove();
-    mediaEl.querySelector('.artcard__fallback')?.style.setProperty('opacity', '0.8');
-  });
-}
-
 function onKeydown(e) {
   if (e.key === 'Escape') closeModal();
+}
+
+// Retrait immédiat de la modale active (utilisé lors d'un saut nodal) :
+// pas d'animation, on garde le scroll verrouillé et le focus de départ.
+function hardClose() {
+  if (!activeModal) return;
+  document.removeEventListener('keydown', onKeydown);
+  activeModal.remove();
+  activeModal = null;
 }
 
 export function closeModal() {
