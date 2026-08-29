@@ -14,9 +14,11 @@ function esc(s = '') {
 export function mediaMarkup(art, { size = 'card' } = {}) {
   const alt = esc(`${art.title} — ${art.artist}`);
   const loading = size === 'large' ? 'eager' : 'lazy';
+  // Le repli est placé DERRIÈRE l'image : visible pendant le chargement
+  // ou en cas d'erreur, mais recouvert dès que l'image est chargée.
   return (
-    `<img class="artcard__img" src="${esc(art.imageUrl)}" alt="${alt}" loading="${loading}" decoding="async" />` +
-    `<div class="artcard__fallback" aria-hidden="true">🖼️</div>`
+    `<div class="artcard__fallback" aria-hidden="true">🖼️</div>` +
+    `<img class="artcard__img" src="${esc(art.imageUrl)}" alt="${alt}" loading="${loading}" decoding="async" />`
   );
 }
 

@@ -196,13 +196,20 @@
 
 .modal__media {
   position: relative;
-  background: var(--fallback, #222);
-  min-height: 320px;
+  /* fond = couleur dominante + léger dégradé, pour un letterboxing propre */
+  background-color: var(--fallback, #222);
+  background-image: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--fallback, #222) 80%, black 20%),
+    var(--fallback, #222)
+  );
+  min-height: 340px;
 }
 .modal__media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* contain : on voit l'œuvre en entier, sans recadrage */
+  object-fit: contain;
 }
 .modal__media .artcard__fallback {
   font-size: 5rem;
