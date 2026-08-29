@@ -18,8 +18,26 @@ export function openModal(art) {
   const media = el('div', {
     class: 'modal__media',
     style: `--fallback:${art.dominantColor || '#333'}`,
-    html: mediaMarkup(art, { size: 'large' }),
+    title: "Cliquer pour agrandir l'œuvre",
+    html:
+      mediaMarkup(art, { size: 'large' }) +
+      '<span class="modal__zoom-hint" aria-hidden="true">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>' +
+      '</span>',
   });
+
+  // --- Bonus : mode focus. Clic sur l'œuvre = on masque le bloc infos
+  //     et on ne garde que l'œuvre, agrandie. Re-clic = retour. ---
+  const toggleFocus = () => {
+    haptic(10);
+    panel.classList.toggle('is-focused');
+    const focused = panel.classList.contains('is-focused');
+    media.setAttribute(
+      'title',
+      focused ? "Cliquer pour revenir au détail" : "Cliquer pour agrandir l'œuvre"
+    );
+  };
+  media.addEventListener('click', toggleFocus);
 
   const tags = el(
     'div',

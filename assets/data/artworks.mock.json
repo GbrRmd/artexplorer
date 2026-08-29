@@ -4,13 +4,13 @@
     "count": 12,
     "note": "Jeu de données TEST — œuvres du domaine public. Images via Wikimedia (Special:FilePath). Remplacé par Firestore + Cloudinary en Phase 3/4.",
     "themes": [
-      { "name": "Nuit", "count": 2 },
+      { "name": "Nuit", "count": 3 },
       { "name": "Portrait", "count": 3 },
-      { "name": "Nature", "count": 4 },
+      { "name": "Nature", "count": 6 },
       { "name": "Mer", "count": 2 },
-      { "name": "Amour", "count": 2 },
+      { "name": "Amour", "count": 3 },
       { "name": "Histoire", "count": 2 },
-      { "name": "Émotion", "count": 2 }
+      { "name": "Émotion", "count": 4 }
     ],
     "techniques": [
       { "name": "Huile", "count": 8 },

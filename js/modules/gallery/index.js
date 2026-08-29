@@ -10,6 +10,7 @@ import { CONFIG } from '../../../config.js';
 import { mediaMarkup, wireImage } from './media.js';
 import { attachTilt } from './card-tilt.js';
 import { openModal } from './modal.js';
+import { createFilterBar } from './filters.js';
 
 const ICON = `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>`;
 
@@ -62,18 +63,54 @@ export default {
 };
 
 function renderGallery(body, artworks) {
-  // Barre d'outils avec compteur
-  body.append(
-    el('div', { class: 'gallery-toolbar' }, [
-      el('div', { class: 'gallery-count', html: `<strong>${artworks.length}</strong> œuvres à explorer` }),
-    ])
-  );
+  const total = artworks.length;
+
+  // Compteur de résultats
+  const count = el('div', { class: 'gallery-count' });
+
+  // Barre de recherche + filtres : re-rend la grille à chaque changement
+  const filters = createFilterBar({ artworks, meta: data.meta }, (filtered) => {
+    updateGrid(grid, filtered);
+    updateCount(count, filtered.length, total);
+  });
 
   const grid = el('div', { class: 'gallery-grid' });
-  artworks.forEach((art, i) => grid.append(buildCard(art, i)));
-  body.append(grid);
 
-  // Effets image + tilt
+  body.append(
+    filters.el,
+    el('div', { class: 'gallery-toolbar' }, [count]),
+    grid
+  );
+
+  updateGrid(grid, artworks);
+  updateCount(count, total, total);
+}
+
+function updateCount(node, shown, total) {
+  node.innerHTML =
+    shown === total
+      ? `<strong>${total}</strong> œuvres à explorer`
+      : `<strong>${shown}</strong> sur ${total} œuvres`;
+}
+
+// Vide la grille, nettoie les anciens effets, recrée les cartes.
+function updateGrid(grid, artworks) {
+  cleanups.forEach((fn) => fn());
+  cleanups = [];
+  grid.innerHTML = '';
+
+  if (artworks.length === 0) {
+    grid.append(
+      el('div', { class: 'gallery-empty' }, [
+        el('div', { class: 'placeholder__emoji', text: '🔍' }),
+        el('h2', { text: 'Aucune œuvre ne correspond' }),
+        el('p', { text: 'Essaie un autre mot ou retire un filtre.' }),
+      ])
+    );
+    return;
+  }
+
+  artworks.forEach((art, i) => grid.append(buildCard(art, i)));
   wireImage(grid);
   cleanups = artworks.map((_, i) => {
     const card = grid.children[i];
