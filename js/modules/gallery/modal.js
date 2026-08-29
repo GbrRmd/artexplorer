@@ -6,6 +6,7 @@
 
 import { el, haptic } from '../../core/utils.js';
 import { mediaMarkup, wireImage } from './media.js';
+import { PERIODS, periodIndex, markerPercent, getPeriod } from './periods.js';
 
 let activeModal = null;
 let lastFocused = null;
@@ -14,11 +15,10 @@ let lastFocused = null;
  * Ouvre la fiche détaillée d'une œuvre.
  * @param {object} art
  * @param {object} [opts]
- * @param {Array}  [opts.related]  œuvres liées (navigation nodale)
- * @param {Function}[opts.onSelect] appelé quand on clique une œuvre liée
+ * @param {Function}[opts.onTimeline] appelé (avec l'œuvre) au clic sur la frise
  */
 export function openModal(art, opts = {}) {
-  const { related = [], onSelect = null } = opts;
+  const { onTimeline = null } = opts;
   haptic(12);
   // Saut vers une œuvre liée : on retire l'ancienne modale immédiatement
   // (sans animation ni déverrouillage du scroll). Sinon on mémorise le
@@ -65,44 +65,8 @@ export function openModal(art, opts = {}) {
     el('p', { class: 'modal__artist', text: art.artist }),
     el('p', { class: 'modal__desc', text: art.description || '' }),
     tags,
+    buildFriseMini(art, onTimeline),
   ];
-
-  // --- Navigation nodale : "Dans le même esprit" ---
-  if (related.length && onSelect) {
-    const list = el(
-      'div',
-      { class: 'related-list' },
-      related.map((other) =>
-        el(
-          'button',
-          {
-            class: 'related-item',
-            type: 'button',
-            title: `${other.title} — ${other.artist}`,
-            'aria-label': `Voir « ${other.title} » de ${other.artist}`,
-            onClick: () => {
-              haptic(10);
-              onSelect(other);
-            },
-          },
-          [
-            el('span', {
-              class: 'related-item__media',
-              style: `--fallback:${other.dominantColor || '#333'}`,
-              html: mediaMarkup(other, { size: 'card' }),
-            }),
-            el('span', { class: 'related-item__title', text: other.title }),
-          ]
-        )
-      )
-    );
-    contentChildren.push(
-      el('div', { class: 'modal__related' }, [
-        el('span', { class: 'modal__related-label', text: '✨ Dans le même esprit' }),
-        list,
-      ])
-    );
-  }
 
   const content = el('div', { class: 'modal__content' }, contentChildren);
 
@@ -142,6 +106,52 @@ export function openModal(art, opts = {}) {
 
   document.addEventListener('keydown', onKeydown);
   closeBtn.focus();
+}
+
+// Mini-frise : 7 zones colorées (périodes), la période de l'œuvre est
+// mise en avant et un marqueur pointe l'année. Cliquable -> vue Frise.
+function buildFriseMini(art, onTimeline) {
+  const active = periodIndex(art.year);
+  const period = getPeriod(art.year);
+
+  const zones = PERIODS.map((p, i) =>
+    el('span', {
+      class: 'frise-mini__zone' + (i === active ? ' is-active' : ''),
+      style: `--c:${p.color}`,
+      title: `${p.name} (${p.dates})`,
+    })
+  );
+  const marker = el('span', {
+    class: 'frise-mini__marker',
+    style: `left:${markerPercent(art.year).toFixed(1)}%`,
+  });
+
+  const track = el('div', { class: 'frise-mini__track' }, [...zones, marker]);
+
+  return el('div', { class: 'modal__frise' }, [
+    el(
+      'button',
+      {
+        class: 'frise-mini',
+        type: 'button',
+        'aria-label': `Voir la frise chronologique — période ${period.name}`,
+        onClick: () => {
+          haptic(10);
+          const cb = onTimeline;
+          closeModal();
+          if (cb) cb(art);
+        },
+      },
+      [
+        el('span', { class: 'frise-mini__caption', text: '📜 Sa place dans le temps' }),
+        track,
+        el('span', {
+          class: 'frise-mini__label',
+          html: `<strong>${period.name}</strong> · ${art.year} <span class="frise-mini__go">— voir la frise →</span>`,
+        }),
+      ]
+    ),
+  ]);
 }
 
 function onKeydown(e) {

@@ -12,11 +12,13 @@ import { attachTilt } from './card-tilt.js';
 import { openModal } from './modal.js';
 import { createFilterBar } from './filters.js';
 import { createConstellation } from './constellation.js';
+import { createTimeline } from './timeline.js';
 
 const ICON = `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>`;
 
 let data = null; // cache mémoire du catalogue
 let cleanups = []; // fonctions de nettoyage des effets tilt
+let galleryView = null; // { setView, timeline } — pilotage depuis la modale
 
 export default {
   id: 'gallery',
@@ -60,6 +62,7 @@ export default {
   unmount() {
     cleanups.forEach((fn) => fn());
     cleanups = [];
+    galleryView = null;
   },
 };
 
@@ -81,32 +84,45 @@ function renderGallery(body, artworks) {
     grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
+  // Vue Frise : chronologie de toutes les œuvres, clic -> ouvre la fiche
+  const timeline = createTimeline(artworks, { onOpenArt: openArt });
+
   // Sous-vues
   const gridWrap = el('div', {}, [
     filters.el,
     el('div', { class: 'gallery-toolbar' }, [count]),
     grid,
   ]);
-  const constWrap = constellation.el;
+  const views = { grid: gridWrap, constellation: constellation.el, timeline: timeline.el };
 
-  // Sélecteur de vue (Grille / Constellation)
-  const gridBtn = el('button', { class: 'view-switch__btn', type: 'button', text: '🎨 Grille' });
-  const constBtn = el('button', { class: 'view-switch__btn', type: 'button', text: '✨ Constellation' });
+  // Sélecteur de vue (Grille / Constellation / Frise)
+  const buttons = {
+    grid: el('button', { class: 'view-switch__btn', type: 'button', text: '🎨 Grille' }),
+    constellation: el('button', { class: 'view-switch__btn', type: 'button', text: '✨ Constellation' }),
+    timeline: el('button', { class: 'view-switch__btn', type: 'button', text: '🕰️ Frise' }),
+  };
 
   function setView(mode) {
-    const isGrid = mode === 'grid';
-    gridWrap.style.display = isGrid ? '' : 'none';
-    constWrap.style.display = isGrid ? 'none' : '';
-    gridBtn.setAttribute('aria-pressed', String(isGrid));
-    constBtn.setAttribute('aria-pressed', String(!isGrid));
+    for (const key of Object.keys(views)) {
+      views[key].style.display = key === mode ? '' : 'none';
+      buttons[key].setAttribute('aria-pressed', String(key === mode));
+    }
     haptic(8);
   }
-  gridBtn.addEventListener('click', () => setView('grid'));
-  constBtn.addEventListener('click', () => setView('constellation'));
+  for (const key of Object.keys(buttons)) {
+    buttons[key].addEventListener('click', () => setView(key));
+  }
 
-  const switcher = el('div', { class: 'view-switch', role: 'tablist', 'aria-label': "Mode d'exploration" }, [gridBtn, constBtn]);
+  const switcher = el(
+    'div',
+    { class: 'view-switch', role: 'tablist', 'aria-label': "Mode d'exploration" },
+    Object.values(buttons)
+  );
 
-  body.append(switcher, gridWrap, constWrap);
+  // Rend le pilotage accessible à la modale (mini-frise -> vue Frise)
+  galleryView = { setView, timeline };
+
+  body.append(switcher, gridWrap, constellation.el, timeline.el);
   updateGrid(grid, artworks);
   updateCount(count, total, total);
   setView('grid');
@@ -144,26 +160,17 @@ function updateGrid(grid, artworks) {
   });
 }
 
-// Ouvre une œuvre avec ses œuvres liées (navigation nodale : on saute
-// d'œuvre en œuvre en suivant les thèmes/technique partagés).
+// Ouvre la fiche d'une œuvre. Le clic sur sa mini-frise bascule vers la
+// vue Frise, ciblée sur cette œuvre.
 function openArt(art) {
-  openModal(art, { related: relatedTo(art), onSelect: openArt });
-}
-
-// Œuvres liées : score = thèmes partagés (+1 si même technique).
-function relatedTo(art) {
-  return (data.artworks || [])
-    .filter((a) => a.id !== art.id)
-    .map((a) => ({
-      a,
-      score:
-        a.themes.filter((t) => art.themes.includes(t)).length +
-        (a.technique === art.technique ? 1 : 0),
-    }))
-    .filter((x) => x.score > 0)
-    .sort((x, y) => y.score - x.score)
-    .slice(0, 6)
-    .map((x) => x.a);
+  openModal(art, {
+    onTimeline: (a) => {
+      if (!galleryView) return;
+      galleryView.setView('timeline');
+      // laisse la vue s'afficher avant de cibler/scroller
+      setTimeout(() => galleryView.timeline.focus(a.id), 60);
+    },
+  });
 }
 
 function buildCard(art, index) {
