@@ -9,7 +9,7 @@
 
 import { el } from '../../core/utils.js';
 import { mediaMarkup, wireImage } from './media.js';
-import { getPeriod, nowYear, formatYear } from './periods.js';
+import { PERIODS, getPeriod, nowYear, formatYear } from './periods.js';
 
 const K = 0.9; // pixels par année
 const MIN_GAP = 88; // écart minimal lisible
@@ -124,8 +124,35 @@ export function createTimeline(artworks, { onOpenArt }) {
 
   const frise = el('div', { class: 'frise', style: `height:${total}px` }, layers);
 
+  // Légende : toutes les grandes périodes de l'art, pour situer les œuvres.
+  // Celles représentées dans le catalogue sont mises en avant ; les autres
+  // restent visibles (grisées) pour montrer qu'elles existent.
+  const presentIds = new Set(arts.map((e) => e.period.id));
+  const legend = el('div', { class: 'fr__legend' }, [
+    el('span', { class: 'fr__legend-title', text: 'Les grandes périodes' }),
+    el(
+      'ul',
+      { class: 'fr__legend-list' },
+      PERIODS.map((p) =>
+        el(
+          'li',
+          {
+            class: 'fr__legend-item' + (presentIds.has(p.id) ? ' is-present' : ''),
+            style: `--c:${p.color}`,
+          },
+          [
+            el('span', { class: 'fr__legend-dot' }),
+            el('span', { class: 'fr__legend-name', text: p.name }),
+            el('span', { class: 'fr__legend-dates', text: p.dates }),
+          ]
+        )
+      )
+    ),
+  ]);
+
   const root = el('div', { class: 'timeline' }, [
     el('p', { class: 'view-hint', text: 'Remonte le temps 🕰️ — plus l’écart est grand, plus les œuvres sont éloignées.' }),
+    legend,
     frise,
   ]);
 
