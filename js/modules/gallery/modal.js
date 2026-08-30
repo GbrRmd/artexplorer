@@ -6,7 +6,13 @@
 
 import { el, haptic } from '../../core/utils.js';
 import { mediaMarkup, wireImage } from './media.js';
-import { PERIODS, periodIndex, markerPercent, getPeriod } from './periods.js';
+import {
+  getPeriod,
+  SCALED_PERIODS,
+  scaledDuration,
+  yearPercent,
+  nowYear,
+} from './periods.js';
 
 let activeModal = null;
 let lastFocused = null;
@@ -108,25 +114,34 @@ export function openModal(art, opts = {}) {
   closeBtn.focus();
 }
 
-// Mini-frise : 7 zones colorées (périodes), la période de l'œuvre est
-// mise en avant et un marqueur pointe l'année. Cliquable -> vue Frise.
+// Mini-frise PROPORTIONNELLE : zones dimensionnées à l'échelle du temps
+// (de l'Antiquité à aujourd'hui), repère "an 0", année en cours à droite,
+// marqueur sur l'année de l'œuvre. Cliquable -> vue Frise dédiée.
 function buildFriseMini(art, onTimeline) {
-  const active = periodIndex(art.year);
   const period = getPeriod(art.year);
 
-  const zones = PERIODS.map((p, i) =>
+  const zones = SCALED_PERIODS.map((p) =>
     el('span', {
-      class: 'frise-mini__zone' + (i === active ? ' is-active' : ''),
-      style: `--c:${p.color}`,
+      class: 'fmini__zone' + (p.id === period.id ? ' is-active' : ''),
+      style: `flex-grow:${scaledDuration(p)}; --c:${p.color}`,
       title: `${p.name} (${p.dates})`,
     })
   );
-  const marker = el('span', {
-    class: 'frise-mini__marker',
-    style: `left:${markerPercent(art.year).toFixed(1)}%`,
-  });
 
-  const track = el('div', { class: 'frise-mini__track' }, [...zones, marker]);
+  const bar = el('div', { class: 'fmini' }, [
+    el('div', { class: 'fmini__track' }, zones),
+    el('span', {
+      class: 'fmini__zero',
+      style: `left:${yearPercent(0).toFixed(1)}%`,
+      html: '<i class="fmini__zero-line"></i><em class="fmini__cap">an 0</em>',
+    }),
+    el('span', { class: 'fmini__now', text: String(nowYear()) }),
+    el('span', {
+      class: 'fmini__marker',
+      style: `left:${yearPercent(art.year).toFixed(1)}%`,
+      html: `<em class="fmini__marker-year">${art.year}</em>`,
+    }),
+  ]);
 
   return el('div', { class: 'modal__frise' }, [
     el(
@@ -144,7 +159,7 @@ function buildFriseMini(art, onTimeline) {
       },
       [
         el('span', { class: 'frise-mini__caption', text: '📜 Sa place dans le temps' }),
-        track,
+        bar,
         el('span', {
           class: 'frise-mini__label',
           html: `<strong>${period.name}</strong> · ${art.year} <span class="frise-mini__go">— voir la frise →</span>`,

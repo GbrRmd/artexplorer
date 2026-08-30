@@ -27,10 +27,27 @@ export function getPeriod(year) {
   return PERIODS[periodIndex(year)];
 }
 
-/** Position (%) d'une année sur une frise à zones de largeur égale. */
-export function markerPercent(year) {
-  const i = periodIndex(year);
-  const p = PERIODS[i];
-  const frac = Math.max(0, Math.min(1, (year - p.from) / (p.to - p.from)));
-  return ((i + frac) / PERIODS.length) * 100;
+/** Année courante (l'extrémité "aujourd'hui" des frises). */
+export function nowYear() {
+  return new Date().getFullYear();
+}
+
+// --- Échelle proportionnelle au temps ---
+// On démarre l'axe à l'Antiquité (−3000) : la Préhistoire est un "temps
+// profond" hors échelle. L'an 0 tombe alors vers le milieu, l'année en
+// cours à l'extrémité — exactement le repère demandé.
+export const AXIS_MIN = -3000;
+
+/** Périodes réellement placées sur l'échelle (hors Préhistoire). */
+export const SCALED_PERIODS = PERIODS.filter((p) => p.id !== 'prehistoire');
+
+/** Position (0..100 %) d'une année sur l'axe proportionnel. */
+export function yearPercent(year, min = AXIS_MIN, max = nowYear()) {
+  const y = Math.max(min, Math.min(max, year));
+  return ((y - min) / (max - min)) * 100;
+}
+
+/** Durée (années) d'une période visible dans l'intervalle de l'axe. */
+export function scaledDuration(p, min = AXIS_MIN, max = nowYear()) {
+  return Math.max(0, Math.min(p.to, max) - Math.max(p.from, min));
 }
