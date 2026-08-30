@@ -51,3 +51,20 @@ export function yearPercent(year, min = AXIS_MIN, max = nowYear()) {
 export function scaledDuration(p, min = AXIS_MIN, max = nowYear()) {
   return Math.max(0, Math.min(p.to, max) - Math.max(p.from, min));
 }
+
+/**
+ * Bornes de la mini-frise d'une œuvre.
+ * - Œuvre après l'an 0 : axe [0 → année en cours].
+ * - Œuvre avant l'an 0 : axe [année de l'œuvre → année en cours]
+ *   (on voit alors l'œuvre, l'an 0 et aujourd'hui, en proportion).
+ */
+export function friseBounds(year) {
+  return year >= 0 ? { min: 0, max: nowYear() } : { min: year, max: nowYear() };
+}
+
+/** Libellé court et laïc d'une année (ex. "an 0", "1665", "17000 av."). */
+export function formatYear(y) {
+  if (y === 0) return 'an 0';
+  if (y < 0) return `${Math.abs(y).toLocaleString('fr-FR')} av.`;
+  return String(y);
+}

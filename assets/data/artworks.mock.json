@@ -1,79 +1,59 @@
 {
   "meta": {
-    "version": 1,
-    "count": 12,
-    "note": "Jeu de données TEST — œuvres du domaine public. Images via Wikimedia (Special:FilePath). Remplacé par Firestore + Cloudinary en Phase 3/4.",
+    "version": 2,
+    "count": 15,
+    "note": "Jeu de données TEST — œuvres du domaine public + exemples préhistorique et guadeloupéens. Images via Wikimedia (Special:FilePath). Anecdotes destinées aux collégiens. Remplacé par Firestore + Cloudinary en Phase 3/4.",
     "themes": [
       { "name": "Nuit", "count": 3 },
       { "name": "Portrait", "count": 3 },
-      { "name": "Nature", "count": 6 },
+      { "name": "Nature", "count": 8 },
       { "name": "Mer", "count": 2 },
       { "name": "Amour", "count": 3 },
-      { "name": "Histoire", "count": 2 },
-      { "name": "Émotion", "count": 4 }
+      { "name": "Histoire", "count": 4 },
+      { "name": "Émotion", "count": 5 },
+      { "name": "Animaux", "count": 1 }
     ],
     "techniques": [
-      { "name": "Huile", "count": 8 },
+      { "name": "Huile", "count": 9 },
       { "name": "Estampe", "count": 1 },
       { "name": "Tempera", "count": 2 },
-      { "name": "Feuille d'or", "count": 1 }
+      { "name": "Feuille d'or", "count": 1 },
+      { "name": "Peinture rupestre", "count": 1 },
+      { "name": "Gravure sur roche", "count": 1 }
     ]
   },
   "artworks": [
     {
-      "id": "van-gogh-nuit-etoilee",
-      "title": "La Nuit étoilée",
-      "artist": "Vincent van Gogh",
-      "year": 1889,
-      "technique": "Huile",
-      "themes": ["Nuit", "Nature", "Émotion"],
-      "dominantColor": "#1b3a63",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Van%20Gogh%20-%20Starry%20Night%20-%20Google%20Art%20Project.jpg?width=800",
-      "description": "Un ciel qui tourbillonne au-dessus d'un village endormi. Van Gogh l'a peinte depuis la fenêtre de sa chambre d'hôpital. Les étoiles semblent bouger : c'est le tableau le plus célèbre du monde de la nuit."
+      "id": "lascaux-taureaux",
+      "title": "Les taureaux de Lascaux",
+      "artist": "Artistes de la Préhistoire",
+      "year": -17000,
+      "technique": "Peinture rupestre",
+      "themes": ["Animaux", "Nature"],
+      "dominantColor": "#8a5a2b",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lascaux%20painting.jpg?width=800",
+      "description": "Des animaux géants peints sur les parois d'une grotte, il y a 17 000 ans. Nos ancêtres n'avaient ni écriture ni villes, mais ils dessinaient déjà des chevaux et des taureaux à la lueur des flammes.",
+      "anecdotes": [
+        "Ces peintures ont 17 000 ans. Elles sont plus vieilles que l'écriture, que les villes, que tout ce que tu connais.",
+        "Elles ont été découvertes en 1940 par quatre ados et leur chien Robot, qui a filé dans un trou.",
+        "La vraie grotte est fermée : notre souffle abîmait les couleurs. On visite une copie parfaite juste à côté."
+      ]
     },
     {
-      "id": "vermeer-jeune-fille-perle",
-      "title": "La Jeune Fille à la perle",
-      "artist": "Johannes Vermeer",
-      "year": 1665,
-      "technique": "Huile",
-      "themes": ["Portrait", "Émotion"],
-      "dominantColor": "#0e1c2b",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1665%20Girl%20with%20a%20Pearl%20Earring.jpg?width=800",
-      "description": "On l'appelle « la Joconde du Nord ». Une jeune fille se retourne, une grosse perle brille à son oreille. Personne ne sait qui elle est vraiment : tout le mystère est dans son regard."
-    },
-    {
-      "id": "hokusai-grande-vague",
-      "title": "La Grande Vague de Kanagawa",
-      "artist": "Katsushika Hokusai",
-      "year": 1831,
-      "technique": "Estampe",
-      "themes": ["Mer", "Nature"],
-      "dominantColor": "#1c5a78",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tsunami%20by%20hokusai%2019th%20century.jpg?width=800",
-      "description": "Une vague géante prête à engloutir des barques, avec le mont Fuji minuscule au loin. Cette estampe japonaise a été imprimée à des milliers d'exemplaires : c'est l'image du Japon la plus connue au monde."
-    },
-    {
-      "id": "klimt-le-baiser",
-      "title": "Le Baiser",
-      "artist": "Gustav Klimt",
-      "year": 1908,
-      "technique": "Feuille d'or",
-      "themes": ["Amour", "Portrait"],
-      "dominantColor": "#8a6d1f",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Kiss%20-%20Gustav%20Klimt%20-%20Google%20Cultural%20Institute.jpg?width=800",
-      "description": "Un couple enlacé dans un manteau d'or. Klimt a utilisé de la vraie feuille d'or, comme dans les tableaux religieux. Tout brille, tout est décoratif : c'est l'amour transformé en bijou."
-    },
-    {
-      "id": "monet-impression-soleil-levant",
-      "title": "Impression, soleil levant",
-      "artist": "Claude Monet",
-      "year": 1872,
-      "technique": "Huile",
-      "themes": ["Mer", "Nature"],
-      "dominantColor": "#3d5a6c",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Monet%20-%20Impression%2C%20Sunrise.jpg?width=800",
-      "description": "Un port dans la brume au lever du soleil, peint en taches rapides. C'est ce tableau qui a donné son nom à l'« impressionnisme » — au départ une moquerie de critiques, devenue le mouvement le plus aimé de tous."
+      "id": "roches-gravees-guadeloupe",
+      "title": "Les roches gravées de Trois-Rivières",
+      "artist": "Amérindiens de Guadeloupe",
+      "year": 400,
+      "technique": "Gravure sur roche",
+      "themes": ["Histoire", "Nature"],
+      "dominantColor": "#5b6b58",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Roches%20grav%C3%A9es%20Trois-Rivi%C3%A8res.jpg?width=800",
+      "description": "Des visages et des symboles gravés dans la roche par les premiers habitants de la Guadeloupe. Le plus vieil art de l'île, laissé par les Amérindiens bien avant l'arrivée des bateaux européens.",
+      "anecdotes": [
+        "Ces dessins gravés dans la pierre ont été faits par les Amérindiens de Guadeloupe il y a plus de 1500 ans.",
+        "Personne ne sait exactement ce qu'ils racontent : des visages, des animaux, des esprits ? Le mystère reste entier.",
+        "Tu peux les voir en vrai à Trois-Rivières, en Guadeloupe. C'est notre plus vieil art local."
+      ]
     },
     {
       "id": "da-vinci-joconde",
@@ -84,18 +64,12 @@
       "themes": ["Portrait"],
       "dominantColor": "#5a4a2f",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mona%20Lisa%2C%20by%20Leonardo%20da%20Vinci%2C%20from%20C2RMF%20retouched.jpg?width=800",
-      "description": "Le tableau le plus visité de la planète, au Louvre. Son sourire semble changer selon l'angle où on le regarde. Léonard l'a gardé avec lui toute sa vie sans jamais le livrer."
-    },
-    {
-      "id": "munch-le-cri",
-      "title": "Le Cri",
-      "artist": "Edvard Munch",
-      "year": 1893,
-      "technique": "Tempera",
-      "themes": ["Émotion", "Nuit"],
-      "dominantColor": "#b5531f",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Scream.jpg?width=800",
-      "description": "Un personnage se tient les joues, la bouche ouverte, sur un pont, sous un ciel rouge sang. Ce n'est pas lui qui crie : Munch disait entendre « le cri infini de la nature ». L'angoisse en un seul dessin."
+      "description": "Le tableau le plus visité de la planète, au Louvre. Son sourire semble changer selon l'angle où on le regarde. Léonard l'a gardé avec lui toute sa vie sans jamais le livrer.",
+      "anecdotes": [
+        "Elle a été volée en 1911 par un ouvrier qui l'a cachée deux ans sous son lit.",
+        "Elle n'a pas de sourcils. Mode de l'époque ou tableau pas fini ? Le débat continue.",
+        "Son sourire change selon l'angle : Léonard a flouté exprès les coins de sa bouche."
+      ]
     },
     {
       "id": "botticelli-naissance-venus",
@@ -106,18 +80,28 @@
       "themes": ["Nature", "Amour"],
       "dominantColor": "#7c8a6a",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sandro%20Botticelli%20-%20La%20nascita%20di%20Venere%20-%20Google%20Art%20Project%20-%20edited.jpg?width=800",
-      "description": "La déesse Vénus arrive sur le rivage debout sur un coquillage, poussée par le vent. Peinte il y a plus de 500 ans à Florence, elle célèbre la beauté idéale de la Renaissance."
+      "description": "La déesse Vénus arrive sur le rivage debout sur un coquillage, poussée par le vent. Peinte il y a plus de 500 ans à Florence, elle célèbre la beauté idéale de la Renaissance.",
+      "anecdotes": [
+        "Vénus tient en équilibre sur un coquillage géant. Comment ? Bonne question, personne ne sait.",
+        "Peinte sur toile alors que tout le monde peignait sur bois. Botticelli, le rebelle.",
+        "Le modèle serait la plus belle femme de Florence. Morte jeune, il l'a rendue éternelle."
+      ]
     },
     {
-      "id": "van-gogh-tournesols",
-      "title": "Les Tournesols",
-      "artist": "Vincent van Gogh",
-      "year": 1888,
+      "id": "vermeer-jeune-fille-perle",
+      "title": "La Jeune Fille à la perle",
+      "artist": "Johannes Vermeer",
+      "year": 1665,
       "technique": "Huile",
-      "themes": ["Nature"],
-      "dominantColor": "#c99a1e",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vincent%20Willem%20van%20Gogh%20127.jpg?width=800",
-      "description": "Un bouquet de tournesols dans un vase, tout en jaune. Van Gogh les a peints pour décorer la chambre de son ami le peintre Gauguin. Le jaune était pour lui la couleur du bonheur et de l'amitié."
+      "themes": ["Portrait", "Émotion"],
+      "dominantColor": "#0e1c2b",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1665%20Girl%20with%20a%20Pearl%20Earring.jpg?width=800",
+      "description": "On l'appelle « la Joconde du Nord ». Une jeune fille se retourne, une grosse perle brille à son oreille. Personne ne sait qui elle est vraiment : tout le mystère est dans son regard.",
+      "anecdotes": [
+        "On l'appelle « la Joconde du Nord », mais on ne sait même pas qui c'est. Zéro info, juste un regard.",
+        "La fameuse perle est probablement fausse : trop grosse pour être vraie à l'époque.",
+        "Un roman et un film sont nés de ce simple regard. Pas mal pour une inconnue."
+      ]
     },
     {
       "id": "rembrandt-ronde-de-nuit",
@@ -128,18 +112,28 @@
       "themes": ["Nuit", "Histoire"],
       "dominantColor": "#3a2c17",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Night%20Watch%20-%20HD.jpg?width=800",
-      "description": "Un groupe de gardes qui se met en marche, saisi en plein mouvement — très rare pour l'époque. La lumière éclaire certains visages et en laisse d'autres dans l'ombre, comme un projecteur de théâtre."
+      "description": "Un groupe de gardes qui se met en marche, saisi en plein mouvement — très rare pour l'époque. La lumière éclaire certains visages et en laisse d'autres dans l'ombre, comme un projecteur de théâtre.",
+      "anecdotes": [
+        "Le titre est faux : la scène se passe en plein jour ! Le tableau était juste noirci par la crasse.",
+        "Il a été découpé aux ciseaux en 1715 pour rentrer entre deux portes. Oui, découpé.",
+        "Un homme l'a lacéré au couteau en 1975. Restauré, mais il en garde des cicatrices."
+      ]
     },
     {
-      "id": "renoir-moulin-galette",
-      "title": "Bal du moulin de la Galette",
-      "artist": "Auguste Renoir",
-      "year": 1876,
-      "technique": "Huile",
-      "themes": ["Nature", "Amour"],
-      "dominantColor": "#6b5a7a",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pierre-Auguste%20Renoir%2C%20Le%20Moulin%20de%20la%20Galette.jpg?width=800",
-      "description": "Une fête en plein air à Paris, avec des gens qui dansent sous les arbres. Regarde les taches de lumière du soleil qui passent entre les feuilles : Renoir voulait peindre la joie d'un dimanche après-midi."
+      "id": "hokusai-grande-vague",
+      "title": "La Grande Vague de Kanagawa",
+      "artist": "Katsushika Hokusai",
+      "year": 1831,
+      "technique": "Estampe",
+      "themes": ["Mer", "Nature"],
+      "dominantColor": "#1c5a78",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tsunami%20by%20hokusai%2019th%20century.jpg?width=800",
+      "description": "Une vague géante prête à engloutir des barques, avec le mont Fuji minuscule au loin. Cette estampe japonaise a été imprimée à des milliers d'exemplaires : c'est l'image du Japon la plus connue au monde.",
+      "anecdotes": [
+        "Ce bleu intense vient d'un pigment européen entré en douce : le Japon était fermé à l'époque.",
+        "Ce n'est pas un tsunami mais une « vague scélérate », un vrai phénomène de fou en pleine mer.",
+        "Regarde au fond : la petite bosse, c'est le mont Fuji. Hokusai l'a caché sous la vague."
+      ]
     },
     {
       "id": "delacroix-liberte-guidant-peuple",
@@ -150,7 +144,124 @@
       "themes": ["Histoire", "Émotion"],
       "dominantColor": "#5c4632",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eug%C3%A8ne%20Delacroix%20-%20La%20libert%C3%A9%20guidant%20le%20peuple.jpg?width=800",
-      "description": "Une femme qui brandit le drapeau français au-dessus d'une révolution. Ce n'est pas une vraie personne : c'est la Liberté elle-même. Ce tableau est un symbole de la France, on l'a même mis sur des billets."
+      "description": "Une femme qui brandit le drapeau français au-dessus d'une révolution. Ce n'est pas une vraie personne : c'est la Liberté elle-même. Ce tableau est un symbole de la France, on l'a même mis sur des billets.",
+      "anecdotes": [
+        "La femme au drapeau n'existe pas : c'est la Liberté en personne, un symbole.",
+        "Le personnage au chapeau haut-de-forme, à gauche, serait Delacroix lui-même.",
+        "Ce tableau était sur les billets de 100 francs. Tes grands-parents l'avaient en poche."
+      ]
+    },
+    {
+      "id": "lethiere-serment-ancetres",
+      "title": "Le Serment des ancêtres",
+      "artist": "Guillaume Guillon-Lethière",
+      "year": 1822,
+      "technique": "Huile",
+      "themes": ["Histoire", "Émotion"],
+      "dominantColor": "#3a2e22",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Le%20Serment%20des%20anc%C3%AAtres.jpg?width=800",
+      "description": "Deux hommes se serrent la main sous le regard de Dieu, unis pour la liberté d'Haïti. Une œuvre puissante contre l'esclavage, peinte par un artiste né en Guadeloupe.",
+      "anecdotes": [
+        "Le peintre, Guillaume Guillon-Lethière, est né en Guadeloupe, fils d'une femme autrefois esclave.",
+        "Le tableau célèbre l'union des Haïtiens pour leur liberté : un symbole énorme contre l'esclavage.",
+        "Perdu pendant des années, il a été retrouvé roulé dans une cathédrale d'Haïti après un séisme."
+      ]
+    },
+    {
+      "id": "renoir-moulin-galette",
+      "title": "Bal du moulin de la Galette",
+      "artist": "Auguste Renoir",
+      "year": 1876,
+      "technique": "Huile",
+      "themes": ["Nature", "Amour"],
+      "dominantColor": "#6b5a7a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pierre-Auguste%20Renoir%2C%20Le%20Moulin%20de%20la%20Galette.jpg?width=800",
+      "description": "Une fête en plein air à Paris, avec des gens qui dansent sous les arbres. Regarde les taches de lumière du soleil qui passent entre les feuilles : Renoir voulait peindre la joie d'un dimanche après-midi.",
+      "anecdotes": [
+        "Renoir a peint les taches de soleil entre les arbres. À l'époque, on trouvait ça « mal fini ».",
+        "Il a fait poser ses potes : ce sont de vraies personnes qui faisaient la fête à Montmartre.",
+        "Vendu 78 millions de dollars en 1990, l'une des ventes les plus chères de l'histoire."
+      ]
+    },
+    {
+      "id": "monet-impression-soleil-levant",
+      "title": "Impression, soleil levant",
+      "artist": "Claude Monet",
+      "year": 1872,
+      "technique": "Huile",
+      "themes": ["Mer", "Nature"],
+      "dominantColor": "#3d5a6c",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Monet%20-%20Impression%2C%20Sunrise.jpg?width=800",
+      "description": "Un port dans la brume au lever du soleil, peint en taches rapides. C'est ce tableau qui a donné son nom à l'« impressionnisme » — au départ une moquerie de critiques, devenue le mouvement le plus aimé de tous.",
+      "anecdotes": [
+        "Le mot « impressionnisme » vient d'une moquerie : un critique a dit que c'était juste une « impression », pas fini.",
+        "Ce tableau a été volé en 1985, puis retrouvé cinq ans plus tard. Ouf.",
+        "Le soleil orange a la même luminosité que le ciel : ton cerveau le voit briller, mais c'est une illusion."
+      ]
+    },
+    {
+      "id": "van-gogh-tournesols",
+      "title": "Les Tournesols",
+      "artist": "Vincent van Gogh",
+      "year": 1888,
+      "technique": "Huile",
+      "themes": ["Nature"],
+      "dominantColor": "#c99a1e",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vincent%20Willem%20van%20Gogh%20127.jpg?width=800",
+      "description": "Un bouquet de tournesols dans un vase, tout en jaune. Van Gogh les a peints pour décorer la chambre de son ami le peintre Gauguin. Le jaune était pour lui la couleur du bonheur et de l'amitié.",
+      "anecdotes": [
+        "Peints pour décorer la chambre de son pote Gauguin. L'amitié a fini en dispute et une oreille coupée.",
+        "Le jaune, pour Van Gogh, c'était la couleur du bonheur. Il en a mis partout.",
+        "Il en a fait plusieurs versions. Une a été achetée par un Japonais à un prix record."
+      ]
+    },
+    {
+      "id": "van-gogh-nuit-etoilee",
+      "title": "La Nuit étoilée",
+      "artist": "Vincent van Gogh",
+      "year": 1889,
+      "technique": "Huile",
+      "themes": ["Nuit", "Nature", "Émotion"],
+      "dominantColor": "#1b3a63",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Van%20Gogh%20-%20Starry%20Night%20-%20Google%20Art%20Project.jpg?width=800",
+      "description": "Un ciel qui tourbillonne au-dessus d'un village endormi. Van Gogh l'a peinte depuis la fenêtre de sa chambre d'hôpital. Les étoiles semblent bouger : c'est le tableau le plus célèbre du monde de la nuit.",
+      "anecdotes": [
+        "Van Gogh l'a peinte enfermé dans un hôpital psychiatrique. Le chaos dans sa tête, il l'a mis dans le ciel.",
+        "Il n'a presque rien vendu de sa vie. Aujourd'hui ça vaut une fortune. Trop tard, Vincent.",
+        "Ses tourbillons ressemblent à la « turbulence » des scientifiques, comprise 70 ans plus tard."
+      ]
+    },
+    {
+      "id": "munch-le-cri",
+      "title": "Le Cri",
+      "artist": "Edvard Munch",
+      "year": 1893,
+      "technique": "Tempera",
+      "themes": ["Émotion", "Nuit"],
+      "dominantColor": "#b5531f",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Scream.jpg?width=800",
+      "description": "Un personnage se tient les joues, la bouche ouverte, sur un pont, sous un ciel rouge sang. Ce n'est pas lui qui crie : Munch disait entendre « le cri infini de la nature ». L'angoisse en un seul dessin.",
+      "anecdotes": [
+        "Munch a écrit sur le tableau : « Ne peut avoir été peint que par un fou. » C'était lui.",
+        "Le ciel rouge sang viendrait d'un vrai volcan qui a coloré les ciels du monde en 1883.",
+        "Il en existe quatre versions. Une a été volée en plein jour en 2004, retrouvée deux ans après."
+      ]
+    },
+    {
+      "id": "klimt-le-baiser",
+      "title": "Le Baiser",
+      "artist": "Gustav Klimt",
+      "year": 1908,
+      "technique": "Feuille d'or",
+      "themes": ["Amour", "Portrait"],
+      "dominantColor": "#8a6d1f",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Kiss%20-%20Gustav%20Klimt%20-%20Google%20Cultural%20Institute.jpg?width=800",
+      "description": "Un couple enlacé dans un manteau d'or. Klimt a utilisé de la vraie feuille d'or, comme dans les tableaux religieux. Tout brille, tout est décoratif : c'est l'amour transformé en bijou.",
+      "anecdotes": [
+        "C'est de la vraie feuille d'or collée sur la toile, comme sur les icônes religieuses.",
+        "Klimt vivait entouré de chats qui se baladaient sur ses tableaux en cours de séchage.",
+        "Les motifs sont codés : des rectangles pour l'homme, des cercles pour la femme."
+      ]
     }
   ]
 }

@@ -14,8 +14,11 @@ export function createFilterBar(data, onChange) {
   const artworks = data.artworks || [];
   const themes = (data.meta?.themes || []).map((t) => t.name);
   const techniques = (data.meta?.techniques || []).map((t) => t.name);
+  const artists = [...new Set(artworks.map((a) => a.artist))].sort((a, b) =>
+    a.localeCompare(b, 'fr')
+  );
 
-  const state = { q: '', themes: new Set(), techniques: new Set() };
+  const state = { q: '', themes: new Set(), techniques: new Set(), artists: new Set() };
 
   // --- Recherche ---
   const search = el('input', {
@@ -32,6 +35,7 @@ export function createFilterBar(data, onChange) {
   // --- Chips ---
   const themeChips = new Map();
   const techChips = new Map();
+  const artistChips = new Map();
 
   function makeChip(name, set) {
     const count = el('span', { class: 'chip__count' });
@@ -66,6 +70,13 @@ export function createFilterBar(data, onChange) {
     techWrap.append(c.btn);
   });
 
+  const artistWrap = el('div', { class: 'chips' });
+  artists.forEach((name) => {
+    const c = makeChip(name, state.artists);
+    artistChips.set(name, c);
+    artistWrap.append(c.btn);
+  });
+
   // --- Bouton effacer ---
   const clearBtn = el('button', {
     class: 'filter-clear',
@@ -74,6 +85,7 @@ export function createFilterBar(data, onChange) {
       state.q = '';
       state.themes.clear();
       state.techniques.clear();
+      state.artists.clear();
       search.value = '';
       syncPressed();
       apply();
@@ -92,7 +104,8 @@ export function createFilterBar(data, onChange) {
   const matches = (a) =>
     matchQuery(a) &&
     (state.themes.size === 0 || a.themes.some((t) => state.themes.has(t))) &&
-    (state.techniques.size === 0 || state.techniques.has(a.technique));
+    (state.techniques.size === 0 || state.techniques.has(a.technique)) &&
+    (state.artists.size === 0 || state.artists.has(a.artist));
 
   // Compteurs : basés sur le sous-ensemble texte uniquement (lisible)
   function updateCounts() {
@@ -107,16 +120,22 @@ export function createFilterBar(data, onChange) {
       c.count.textContent = n;
       c.btn.classList.toggle('is-empty', n === 0);
     });
+    artistChips.forEach((c, name) => {
+      const n = subset.filter((a) => a.artist === name).length;
+      c.count.textContent = n;
+      c.btn.classList.toggle('is-empty', n === 0);
+    });
   }
 
   function syncPressed() {
     themeChips.forEach((c, n) => c.btn.setAttribute('aria-pressed', String(state.themes.has(n))));
     techChips.forEach((c, n) => c.btn.setAttribute('aria-pressed', String(state.techniques.has(n))));
+    artistChips.forEach((c, n) => c.btn.setAttribute('aria-pressed', String(state.artists.has(n))));
   }
 
   function apply() {
     updateCounts();
-    const active = state.q || state.themes.size || state.techniques.size;
+    const active = state.q || state.themes.size || state.techniques.size || state.artists.size;
     clearBtn.classList.toggle('is-visible', Boolean(active));
     onChange(artworks.filter(matches));
   }
@@ -128,6 +147,7 @@ export function createFilterBar(data, onChange) {
     search.value = '';
     state.themes.clear();
     state.techniques.clear();
+    state.artists.clear();
     if (themeChips.has(name)) state.themes.add(name);
     syncPressed();
     apply();
@@ -145,6 +165,10 @@ export function createFilterBar(data, onChange) {
     el('div', { class: 'facet' }, [
       el('span', { class: 'facet__label', text: 'Techniques' }),
       techWrap,
+    ]),
+    el('div', { class: 'facet' }, [
+      el('span', { class: 'facet__label', text: 'Artistes' }),
+      artistWrap,
     ]),
     clearBtn,
   ]);

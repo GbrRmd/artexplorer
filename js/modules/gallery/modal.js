@@ -8,11 +8,13 @@ import { el, haptic } from '../../core/utils.js';
 import { mediaMarkup, wireImage } from './media.js';
 import {
   getPeriod,
-  SCALED_PERIODS,
+  PERIODS,
   scaledDuration,
   yearPercent,
-  nowYear,
+  friseBounds,
+  formatYear,
 } from './periods.js';
+import { buildSavaisTu } from './savais-tu.js';
 
 let activeModal = null;
 let lastFocused = null;
@@ -74,6 +76,9 @@ export function openModal(art, opts = {}) {
     buildFriseMini(art, onTimeline),
   ];
 
+  const savaisTu = buildSavaisTu(art);
+  if (savaisTu) contentChildren.push(savaisTu);
+
   const content = el('div', { class: 'modal__content' }, contentChildren);
 
   const closeBtn = el('button', {
@@ -114,34 +119,50 @@ export function openModal(art, opts = {}) {
   closeBtn.focus();
 }
 
-// Mini-frise PROPORTIONNELLE : zones dimensionnées à l'échelle du temps
-// (de l'Antiquité à aujourd'hui), repère "an 0", année en cours à droite,
-// marqueur sur l'année de l'œuvre. Cliquable -> vue Frise dédiée.
+// Mini-frise PROPORTIONNELLE recentrée :
+//  - œuvre après l'an 0 : axe [an 0 → aujourd'hui].
+//  - œuvre avant l'an 0 : axe [année de l'œuvre → aujourd'hui], avec
+//    l'an 0 repéré à sa position proportionnelle.
+// Zones colorées par période, marqueur sur l'année. Cliquable -> vue Frise.
 function buildFriseMini(art, onTimeline) {
   const period = getPeriod(art.year);
+  const { min, max } = friseBounds(art.year);
 
-  const zones = SCALED_PERIODS.map((p) =>
-    el('span', {
+  const zones = PERIODS.map((p) => {
+    const dur = scaledDuration(p, min, max);
+    if (dur <= 0) return null;
+    return el('span', {
       class: 'fmini__zone' + (p.id === period.id ? ' is-active' : ''),
-      style: `flex-grow:${scaledDuration(p)}; --c:${p.color}`,
+      style: `flex-grow:${dur}; --c:${p.color}`,
       title: `${p.name} (${p.dates})`,
-    })
-  );
+    });
+  }).filter(Boolean);
 
-  const bar = el('div', { class: 'fmini' }, [
+  const markerPct = Math.max(1.5, Math.min(98.5, yearPercent(art.year, min, max)));
+
+  const barChildren = [
     el('div', { class: 'fmini__track' }, zones),
-    el('span', {
-      class: 'fmini__zero',
-      style: `left:${yearPercent(0).toFixed(1)}%`,
-      html: '<i class="fmini__zero-line"></i><em class="fmini__cap">an 0</em>',
-    }),
-    el('span', { class: 'fmini__now', text: String(nowYear()) }),
+    el('span', { class: 'fmini__start', text: formatYear(min) }),
+    el('span', { class: 'fmini__now', text: formatYear(max) }),
     el('span', {
       class: 'fmini__marker',
-      style: `left:${yearPercent(art.year).toFixed(1)}%`,
-      html: `<em class="fmini__marker-year">${art.year}</em>`,
+      style: `left:${markerPct.toFixed(1)}%`,
+      // année au-dessus du marqueur (sauf œuvre av. J.-C. : le libellé de
+      // gauche affiche déjà sa date)
+      html: min >= 0 ? `<em class="fmini__marker-year">${formatYear(art.year)}</em>` : '',
     }),
-  ]);
+  ];
+
+  // Repère "an 0" seulement s'il est à l'intérieur de l'axe (œuvre av. J.-C.)
+  if (min < 0) {
+    barChildren.push(
+      el('span', {
+        class: 'fmini__zero',
+        style: `left:${yearPercent(0, min, max).toFixed(1)}%`,
+        html: '<i class="fmini__zero-line"></i><em class="fmini__cap">an 0</em>',
+      })
+    );
+  }
 
   return el('div', { class: 'modal__frise' }, [
     el(
@@ -159,10 +180,10 @@ function buildFriseMini(art, onTimeline) {
       },
       [
         el('span', { class: 'frise-mini__caption', text: '📜 Sa place dans le temps' }),
-        bar,
+        el('div', { class: 'fmini' }, barChildren),
         el('span', {
           class: 'frise-mini__label',
-          html: `<strong>${period.name}</strong> · ${art.year} <span class="frise-mini__go">— voir la frise →</span>`,
+          html: `<strong>${period.name}</strong> · ${formatYear(art.year)} <span class="frise-mini__go">— voir la frise →</span>`,
         }),
       ]
     ),

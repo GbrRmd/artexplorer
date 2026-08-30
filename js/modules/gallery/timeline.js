@@ -1,61 +1,52 @@
 // =============================================================
 //  Vue "Frise" — chronologie verticale, du plus ancien (haut) à
-//  aujourd'hui (bas). L'écart vertical entre deux œuvres est
-//  PROPORTIONNEL à leur écart d'années (avec un minimum pour rester
-//  lisible). Repère "an 0" en haut, saut d'échelle jusqu'aux œuvres,
-//  zones colorées par période, "aujourd'hui" en bas. Animée au scroll.
+//  aujourd'hui (bas). Modèle par "événements" : chaque œuvre, plus
+//  l'an 0 et aujourd'hui, sont placés à la suite ; l'écart vertical
+//  est proportionnel à l'écart d'années (borné pour rester lisible).
+//  Zones colorées par période, étiquettes "N ans" sur les grands
+//  sauts. Animée à l'entrée (scroll).
 // =============================================================
 
 import { el } from '../../core/utils.js';
 import { mediaMarkup, wireImage } from './media.js';
-import { getPeriod, nowYear } from './periods.js';
+import { getPeriod, nowYear, formatYear } from './periods.js';
 
-const K = 1.4; // pixels par année (espacement entre œuvres)
-const MIN_GAP = 92; // écart minimal lisible entre 2 œuvres
-const AN0_Y = 44; // position du repère "an 0"
-const BREAK = 66; // hauteur du saut d'échelle
-const LEAD = 46; // marge avant la 1re œuvre
-const PADB = 70; // marge après "aujourd'hui"
+const K = 0.9; // pixels par année
+const MIN_GAP = 88; // écart minimal lisible
+const MAX_GAP = 300; // écart maximal (borne les grands sauts)
+const TOP = 44;
+const PADB = 60;
 
 export function createTimeline(artworks, { onOpenArt }) {
   const NOW = nowYear();
-  const sorted = [...artworks]
-    .sort((a, b) => a.year - b.year)
-    .map((a) => ({ a, period: getPeriod(a.year) }));
 
-  // Positions verticales : écart ∝ écart d'années (plancher MIN_GAP)
-  let y = AN0_Y + BREAK + LEAD;
-  const placed = sorted.map((item, i) => {
+  // Événements = œuvres + repères an 0 et aujourd'hui, triés par année
+  const events = [
+    ...artworks.map((a) => ({ kind: 'art', year: a.year, art: a, period: getPeriod(a.year) })),
+    { kind: 'zero', year: 0 },
+    { kind: 'now', year: NOW },
+  ].sort((a, b) => a.year - b.year || (a.kind === 'zero' ? -1 : 1));
+
+  // Positions : écart ∝ écart d'années, borné [MIN_GAP, MAX_GAP]
+  let y = TOP;
+  events.forEach((e, i) => {
     if (i > 0) {
-      const dYear = item.a.year - sorted[i - 1].a.year;
-      y += Math.max(MIN_GAP, dYear * K);
+      const dYear = e.year - events[i - 1].year;
+      y += Math.min(MAX_GAP, Math.max(MIN_GAP, dYear * K));
     }
-    return { ...item, y };
+    e.y = y;
   });
-  const lastYear = sorted[sorted.length - 1].a.year;
-  const yNow = placed[placed.length - 1].y + Math.max(MIN_GAP, (NOW - lastYear) * K);
-  const total = yNow + PADB;
+  const total = y + PADB;
 
   const layers = [el('div', { class: 'fr__rail' })];
 
-  // Repère "an 0" + saut d'échelle jusqu'aux œuvres
-  layers.push(
-    el('div', { class: 'fr__mark fr__mark--zero', style: `top:${AN0_Y}px` }, [
-      el('span', { class: 'fr__mark-label', text: 'an 0 · début de notre ère' }),
-    ])
-  );
-  layers.push(
-    el('div', { class: 'fr__break', style: `top:${AN0_Y + 12}px; height:${BREAK}px` }, [
-      el('span', { class: 'fr__break-label', text: `≈ ${placed[0].a.year} ans plus tard…` }),
-    ])
-  );
-
-  // Zones colorées par période (segments du rail) + intitulés
+  // Zones + intitulés de période (groupes d'œuvres consécutives)
+  const arts = events.filter((e) => e.kind === 'art');
   const groups = [];
-  placed.forEach((p) => {
+  arts.forEach((e) => {
     const g = groups[groups.length - 1];
-    if (g && g.period.id === p.period.id) g.items.push(p);
-    else groups.push({ period: p.period, items: [p] });
+    if (g && g.period.id === e.period.id) g.items.push(e);
+    else groups.push({ period: e.period, items: [e] });
   });
   groups.forEach((g) => {
     const first = g.items[0].y;
@@ -74,24 +65,40 @@ export function createTimeline(artworks, { onOpenArt }) {
     );
   });
 
-  // Étiquettes d'écart (« N ans ») pour les grands sauts entre œuvres
-  placed.forEach((p, i) => {
+  // Étiquettes "N ans" sur les grands écarts
+  events.forEach((e, i) => {
     if (i === 0) return;
-    const prev = placed[i - 1];
-    const dYear = p.a.year - prev.a.year;
+    const dYear = e.year - events[i - 1].year;
     if (dYear >= 60) {
       layers.push(
-        el('div', { class: 'fr__gap', style: `top:${(prev.y + p.y) / 2}px` }, [
-          el('span', { class: 'fr__gap-label', text: `${dYear} ans` }),
+        el('div', { class: 'fr__gap', style: `top:${(events[i - 1].y + e.y) / 2}px` }, [
+          el('span', { class: 'fr__gap-label', text: `${dYear.toLocaleString('fr-FR')} ans` }),
         ])
       );
     }
   });
 
-  // Œuvres
-  placed.forEach(({ a, y, period }) => {
-    layers.push(el('span', { class: 'fr__connector', style: `top:${y}px` }));
-    layers.push(el('span', { class: 'fr__dot', style: `top:${y}px; --c:${period.color}` }));
+  // Repères an 0 / aujourd'hui + cartes d'œuvres
+  events.forEach((e) => {
+    if (e.kind === 'zero') {
+      layers.push(
+        el('div', { class: 'fr__mark fr__mark--zero', style: `top:${e.y}px` }, [
+          el('span', { class: 'fr__mark-label', text: 'an 0 · début de notre ère' }),
+        ])
+      );
+      return;
+    }
+    if (e.kind === 'now') {
+      layers.push(
+        el('div', { class: 'fr__mark fr__mark--now', style: `top:${e.y}px` }, [
+          el('span', { class: 'fr__mark-label', text: `aujourd’hui · ${NOW}` }),
+        ])
+      );
+      return;
+    }
+    const a = e.art;
+    layers.push(el('span', { class: 'fr__connector', style: `top:${e.y}px` }));
+    layers.push(el('span', { class: 'fr__dot', style: `top:${e.y}px; --c:${e.period.color}` }));
     layers.push(
       el(
         'button',
@@ -99,14 +106,14 @@ export function createTimeline(artworks, { onOpenArt }) {
           class: 'fr__card',
           type: 'button',
           dataset: { id: a.id },
-          style: `top:${y}px`,
-          'aria-label': `${a.title}, ${a.artist}, ${a.year}`,
+          style: `top:${e.y}px`,
+          'aria-label': `${a.title}, ${a.artist}, ${formatYear(a.year)}`,
           onClick: () => onOpenArt(a),
         },
         [
           el('span', { class: 'fr__card-media', style: `--fallback:${a.dominantColor || '#333'}`, html: mediaMarkup(a, { size: 'card' }) }),
           el('span', { class: 'fr__card-info' }, [
-            el('span', { class: 'fr__card-year', text: String(a.year) }),
+            el('span', { class: 'fr__card-year', text: formatYear(a.year) }),
             el('strong', { class: 'fr__card-title', text: a.title }),
             el('span', { class: 'fr__card-artist', text: a.artist }),
           ]),
@@ -114,13 +121,6 @@ export function createTimeline(artworks, { onOpenArt }) {
       )
     );
   });
-
-  // Repère "aujourd'hui"
-  layers.push(
-    el('div', { class: 'fr__mark fr__mark--now', style: `top:${yNow}px` }, [
-      el('span', { class: 'fr__mark-label', text: `aujourd’hui · ${NOW}` }),
-    ])
-  );
 
   const frise = el('div', { class: 'frise', style: `height:${total}px` }, layers);
 
@@ -131,16 +131,15 @@ export function createTimeline(artworks, { onOpenArt }) {
 
   wireImage(root);
 
-  // Entrée animée des cartes au scroll
   const cards = [...root.querySelectorAll('.fr__card')];
   let io = null;
   if ('IntersectionObserver' in window) {
     io = new IntersectionObserver(
       (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-in');
-            io.unobserve(e.target);
+        for (const en of entries) {
+          if (en.isIntersecting) {
+            en.target.classList.add('is-in');
+            io.unobserve(en.target);
           }
         }
       },
