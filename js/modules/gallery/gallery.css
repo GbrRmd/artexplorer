@@ -253,11 +253,68 @@
    BARRE DE RECHERCHE + FILTRES
    ============================================================= */
 .filterbar {
-  padding: var(--space-4) var(--space-5);
   margin-bottom: var(--space-5);
+  overflow: hidden;
+}
+
+/* Bouton d'ouverture (toujours visible, discret) */
+.filterbar__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  color: var(--text);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+.filterbar__toggle .filter-search__icon {
+  position: static;
+}
+.filterbar__toggle-label {
+  margin-right: auto;
+}
+.filterbar__badge {
+  display: none;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 var(--space-1);
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--gradient-brand);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: 800;
+}
+.filterbar__badge.is-visible {
+  display: grid;
+}
+.filterbar__chevron svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--dur-med) var(--ease-out);
+}
+.filterbar.is-open .filterbar__chevron svg {
+  transform: rotate(180deg);
+}
+
+/* Corps repliable : masqué par défaut, révélé (avec animation) à l'ouverture */
+.filterbar__body {
+  display: none;
+}
+.filterbar.is-open .filterbar__body {
+  display: block;
+  animation: filter-open var(--dur-med) var(--ease-out);
+}
+@keyframes filter-open {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.filterbar__inner {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  padding: 0 var(--space-5) var(--space-4);
 }
 
 /* Recherche */
@@ -362,8 +419,14 @@
   background: rgba(255, 255, 255, 0.25);
   color: #fff;
 }
-.chip.is-empty {
-  opacity: 0.4;
+/* Valeur sans combinaison possible : grisée (mais toujours cliquable
+   pour pouvoir désélectionner). */
+.chip.is-empty:not([aria-pressed="true"]) {
+  opacity: 0.35;
+  filter: grayscale(0.7);
+}
+.chip.is-empty:not([aria-pressed="true"]):hover {
+  opacity: 0.6;
 }
 
 /* Bouton effacer */
@@ -686,49 +749,61 @@
 /* =============================================================
    "LE SAVAIS-TU ?" — sticker raton + overlay anecdotes
    ============================================================= */
+/* Sticker posé sur l'image de la fiche */
 .savaistu {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--space-3);
-  margin-top: var(--space-2);
-}
-.savaistu__tip {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--brand-1);
-  opacity: 0;
-  transform: translateX(8px);
-  transition: opacity var(--dur-med), transform var(--dur-med) var(--ease-spring);
-}
-[data-theme="dark"] .savaistu__tip {
-  color: var(--brand-3);
-}
-.savaistu:hover .savaistu__tip {
-  opacity: 1;
-  transform: translateX(0);
-}
-.savaistu__btn {
-  flex-shrink: 0;
-  border-radius: var(--radius-full);
+  position: absolute;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 4;
+  width: 108px;
   animation: raton-bob 2.6s var(--ease-out) infinite;
   transition: transform var(--dur-fast) var(--ease-spring);
 }
-.savaistu__btn:hover {
-  transform: scale(1.1) rotate(-4deg);
+.savaistu:hover {
+  transform: scale(1.09) rotate(-4deg);
   animation-play-state: paused;
 }
-.savaistu__btn:active {
+.savaistu:active {
   transform: scale(0.95);
 }
 .savaistu__img {
-  width: 116px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
   height: auto;
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
+  display: block;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
+}
+/* Halo pulsé qui attire l'œil et invite au clic */
+.savaistu__halo {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 68%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--brand-3);
+  opacity: 0.6;
+  z-index: 0;
+  animation: savaistu-halo 2s var(--ease-out) infinite;
+}
+@keyframes savaistu-halo {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.55; }
+  100% { transform: translate(-50%, -50%) scale(1.7); opacity: 0; }
+}
+/* En mode focus (image plein cadre), on masque le sticker */
+.modal__panel.is-focused .savaistu {
+  display: none;
 }
 @keyframes raton-bob {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-6px) rotate(2deg); }
+}
+@media (max-width: 640px) {
+  .savaistu {
+    width: 88px;
+  }
 }
 
 /* Overlay */
@@ -829,11 +904,17 @@
   position: relative;
   z-index: 2;
   display: block;
-  width: 128px;
+  width: 132px;
   height: auto;
   margin: var(--space-3) 0 0 var(--space-2);
   filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.6));
-  animation: raton-bob 2.8s var(--ease-out) infinite;
+  transform-origin: bottom center;
+  /* respiration : léger gonflement/dégonflement, comme s'il respirait */
+  animation: raton-breathe 3.4s ease-in-out infinite;
+}
+@keyframes raton-breathe {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.05) translateY(-2px); }
 }
 
 /* =============================================================

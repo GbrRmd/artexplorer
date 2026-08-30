@@ -101,27 +101,35 @@ export function createFilterBar(data, onChange) {
     a.title.toLowerCase().includes(state.q) ||
     a.artist.toLowerCase().includes(state.q);
 
-  const matches = (a) =>
-    matchQuery(a) &&
-    (state.themes.size === 0 || a.themes.some((t) => state.themes.has(t))) &&
-    (state.techniques.size === 0 || state.techniques.has(a.technique)) &&
-    (state.artists.size === 0 || state.artists.has(a.artist));
+  // Prédicats par facette (OU à l'intérieur d'une facette)
+  const okThemes = (a) => state.themes.size === 0 || a.themes.some((t) => state.themes.has(t));
+  const okTech = (a) => state.techniques.size === 0 || state.techniques.has(a.technique);
+  const okArtist = (a) => state.artists.size === 0 || state.artists.has(a.artist);
 
-  // Compteurs : basés sur le sous-ensemble texte uniquement (lisible)
+  const matches = (a) => matchQuery(a) && okThemes(a) && okTech(a) && okArtist(a);
+
+  // Compteurs "disponibles" : pour chaque valeur, on compte les œuvres qui
+  // passeraient les AUTRES facettes actives (+ la recherche) et cette valeur.
+  // Les valeurs à 0 sont grisées -> on guide vers les combinaisons possibles.
   function updateCounts() {
-    const subset = artworks.filter(matchQuery);
     themeChips.forEach((c, name) => {
-      const n = subset.filter((a) => a.themes.includes(name)).length;
+      const n = artworks.filter(
+        (a) => matchQuery(a) && okTech(a) && okArtist(a) && a.themes.includes(name)
+      ).length;
       c.count.textContent = n;
       c.btn.classList.toggle('is-empty', n === 0);
     });
     techChips.forEach((c, name) => {
-      const n = subset.filter((a) => a.technique === name).length;
+      const n = artworks.filter(
+        (a) => matchQuery(a) && okThemes(a) && okArtist(a) && a.technique === name
+      ).length;
       c.count.textContent = n;
       c.btn.classList.toggle('is-empty', n === 0);
     });
     artistChips.forEach((c, name) => {
-      const n = subset.filter((a) => a.artist === name).length;
+      const n = artworks.filter(
+        (a) => matchQuery(a) && okThemes(a) && okTech(a) && a.artist === name
+      ).length;
       c.count.textContent = n;
       c.btn.classList.toggle('is-empty', n === 0);
     });
@@ -133,10 +141,18 @@ export function createFilterBar(data, onChange) {
     artistChips.forEach((c, n) => c.btn.setAttribute('aria-pressed', String(state.artists.has(n))));
   }
 
+  function activeCount() {
+    return (
+      (state.q ? 1 : 0) + state.themes.size + state.techniques.size + state.artists.size
+    );
+  }
+
   function apply() {
     updateCounts();
-    const active = state.q || state.themes.size || state.techniques.size || state.artists.size;
-    clearBtn.classList.toggle('is-visible', Boolean(active));
+    const n = activeCount();
+    clearBtn.classList.toggle('is-visible', n > 0);
+    badge.textContent = n ? String(n) : '';
+    badge.classList.toggle('is-visible', n > 0);
     onChange(artworks.filter(matches));
   }
 
@@ -153,7 +169,8 @@ export function createFilterBar(data, onChange) {
     apply();
   }
 
-  const bar = el('div', { class: 'filterbar glass glass--lit' }, [
+  // Contenu repliable (recherche + facettes + effacer)
+  const inner = el('div', { class: 'filterbar__inner' }, [
     el('div', { class: 'filterbar__search' }, [
       el('span', { class: 'filter-search__icon', html: SEARCH_ICON }),
       search,
@@ -172,8 +189,38 @@ export function createFilterBar(data, onChange) {
     ]),
     clearBtn,
   ]);
+  const body = el('div', { class: 'filterbar__body' }, [inner]);
+
+  // Badge du nombre de filtres actifs (sur le bouton d'ouverture)
+  const badge = el('span', { class: 'filterbar__badge' });
+
+  // Ouverture/fermeture pilotée en JS (max-height = hauteur réelle du
+  // contenu) : fiable quelle que soit la cascade CSS.
+  function setOpen(open) {
+    bar.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+
+  // Bouton d'ouverture/fermeture — la barre est fermée et discrète par défaut
+  const toggle = el(
+    'button',
+    {
+      class: 'filterbar__toggle',
+      type: 'button',
+      'aria-expanded': 'false',
+      onClick: () => setOpen(!bar.classList.contains('is-open')),
+    },
+    [
+      el('span', { class: 'filter-search__icon', html: SEARCH_ICON }),
+      el('span', { class: 'filterbar__toggle-label', text: 'Rechercher & filtrer' }),
+      badge,
+      el('span', { class: 'filterbar__chevron', html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>' }),
+    ]
+  );
+
+  const bar = el('div', { class: 'filterbar glass glass--lit' }, [toggle, body]);
 
   updateCounts();
 
-  return { el: bar, selectTheme };
+  return { el: bar, selectTheme, open: () => setOpen(true) };
 }

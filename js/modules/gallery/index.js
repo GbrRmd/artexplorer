@@ -80,6 +80,7 @@ function renderGallery(body, artworks) {
   // Vue Constellation : taper un univers -> filtre ce thème + retour grille
   const constellation = createConstellation(data.meta?.themes || [], (theme) => {
     filters.selectTheme(theme);
+    filters.open();
     setView('grid');
     grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });

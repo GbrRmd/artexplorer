@@ -76,8 +76,9 @@ export function openModal(art, opts = {}) {
     buildFriseMini(art, onTimeline),
   ];
 
+  // Sticker "Le savais-tu ?" posé sur l'image (bien visible, invite au clic)
   const savaisTu = buildSavaisTu(art);
-  if (savaisTu) contentChildren.push(savaisTu);
+  if (savaisTu) media.append(savaisTu);
 
   const content = el('div', { class: 'modal__content' }, contentChildren);
 

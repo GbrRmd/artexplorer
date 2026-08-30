@@ -7,24 +7,31 @@
 
 import { el, haptic } from '../../core/utils.js';
 
-/** Construit le sticker sur la fiche (ou null si pas d'anecdote). */
+/**
+ * Sticker raton "Le savais-tu ?" à poser SUR l'image de la fiche
+ * (bien visible, halo pulsé qui invite au clic).
+ * Renvoie null si l'œuvre n'a pas d'anecdote.
+ */
 export function buildSavaisTu(art) {
   const anecdotes = art.anecdotes || [];
   if (!anecdotes.length) return null;
 
-  return el('div', { class: 'savaistu' }, [
-    el('span', { class: 'savaistu__tip', text: 'Clique le raton !' }),
-    el(
-      'button',
-      {
-        class: 'savaistu__btn',
-        type: 'button',
-        'aria-label': 'Le savais-tu ? Découvrir des anecdotes sur cette œuvre',
-        onClick: () => openAnecdotes(art),
+  return el(
+    'button',
+    {
+      class: 'savaistu',
+      type: 'button',
+      'aria-label': 'Le savais-tu ? Découvrir des anecdotes sur cette œuvre',
+      onClick: (e) => {
+        e.stopPropagation(); // ne pas déclencher le mode focus de l'image
+        openAnecdotes(art);
       },
-      [el('img', { class: 'savaistu__img', src: 'assets/mascot/savais-tu.png', alt: 'Le savais-tu ?' })]
-    ),
-  ]);
+    },
+    [
+      el('span', { class: 'savaistu__halo' }),
+      el('img', { class: 'savaistu__img', src: 'assets/mascot/savais-tu.png', alt: 'Le savais-tu ?' }),
+    ]
+  );
 }
 
 function openAnecdotes(art) {
