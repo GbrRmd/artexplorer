@@ -1,0 +1,11 @@
+{
+  "name": "artexplorer",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Arts Plastiques — plateforme éducative (site statique, zéro dépendance).",
+  "scripts": {
+    "dev": "npx --yes serve . -l 3000",
+    "validate": "node scripts/validate-catalog.mjs"
+  }
+}

@@ -5,8 +5,8 @@
 //  (Recherche + filtres : P2 — Firestore : P3.)
 // =============================================================
 
-import { el, fetchJSON, loadModuleCSS, haptic } from '../../core/utils.js';
-import { CONFIG } from '../../../config.js';
+import { el, loadModuleCSS, haptic } from '../../core/utils.js';
+import { getCatalog } from '../../core/catalog.js';
 import { mediaMarkup, wireImage } from './media.js';
 import { attachTilt } from './card-tilt.js';
 import { openModal } from './modal.js';
@@ -43,7 +43,7 @@ export default {
     container.append(body);
 
     try {
-      if (!data) data = await fetchJSON(CONFIG.data.mockArtworks);
+      if (!data) data = await getCatalog();
       renderGallery(body, data.artworks || []);
     } catch (err) {
       console.error(err);

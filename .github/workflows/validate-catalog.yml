@@ -1,0 +1,23 @@
+name: Valider le catalogue
+
+on:
+  push:
+    paths:
+      - 'assets/data/artworks.json'
+      - 'js/core/catalog-schema.js'
+      - 'scripts/validate-catalog.mjs'
+  pull_request:
+    paths:
+      - 'assets/data/artworks.json'
+      - 'js/core/catalog-schema.js'
+      - 'scripts/validate-catalog.mjs'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/validate-catalog.mjs

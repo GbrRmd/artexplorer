@@ -1,26 +1,8 @@
 {
   "meta": {
-    "version": 2,
-    "count": 15,
-    "note": "Jeu de données TEST — œuvres du domaine public + exemples préhistorique et guadeloupéens. Images via Wikimedia (Special:FilePath). Anecdotes destinées aux collégiens. Remplacé par Firestore + Cloudinary en Phase 3/4.",
-    "themes": [
-      { "name": "Nuit", "count": 3 },
-      { "name": "Portrait", "count": 3 },
-      { "name": "Nature", "count": 8 },
-      { "name": "Mer", "count": 2 },
-      { "name": "Amour", "count": 3 },
-      { "name": "Histoire", "count": 4 },
-      { "name": "Émotion", "count": 5 },
-      { "name": "Animaux", "count": 1 }
-    ],
-    "techniques": [
-      { "name": "Huile", "count": 9 },
-      { "name": "Estampe", "count": 1 },
-      { "name": "Tempera", "count": 2 },
-      { "name": "Feuille d'or", "count": 1 },
-      { "name": "Peinture rupestre", "count": 1 },
-      { "name": "Gravure sur roche", "count": 1 }
-    ]
+    "version": 3,
+    "updatedAt": "2026-08-30",
+    "note": "Catalogue d'Arts Plastiques — édité via /admin/. Les listes de thèmes / techniques (et leurs compteurs) sont dérivées à la lecture par js/core/catalog.js : rien à maintenir ici à la main. Images via Wikimedia (Special:FilePath) en attendant Cloudinary (P4)."
   },
   "artworks": [
     {

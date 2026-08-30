@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Atelier du catalogue — Arts Plastiques</title>
+
+  <link rel="stylesheet" href="../css/tokens.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="ad-head">
+    <div class="ad-head__title">
+      <span class="ad-head__mark" aria-hidden="true">🎨</span>
+      <div>
+        <strong>Atelier du catalogue</strong>
+        <span class="ad-head__sub">Arts Plastiques — ajouter et modifier les œuvres</span>
+      </div>
+    </div>
+    <div class="ad-head__actions">
+      <span id="dirty" class="ad-pill ad-pill--warn" hidden>Modifications non publiées</span>
+      <button id="pull" class="ad-btn" type="button">↓ Tirer</button>
+      <button id="push" class="ad-btn ad-btn--primary" type="button" disabled>↑ Publier</button>
+      <button id="theme-toggle" class="ad-btn ad-btn--icon" type="button" aria-label="Changer de thème"></button>
+    </div>
+  </header>
+
+  <!-- Jeton d'accès -->
+  <section class="ad-token" id="token-box">
+    <button class="ad-token__toggle" id="token-toggle" type="button" aria-expanded="false">
+      <span id="token-state" class="ad-token__state">Jeton non renseigné</span>
+      <span class="ad-token__chev" aria-hidden="true">▾</span>
+    </button>
+    <div class="ad-token__body" id="token-body" hidden>
+      <p class="ad-token__help">
+        Colle ici ton <strong>jeton d'accès GitHub</strong> (fine-grained), autorisé sur le dépôt
+        <code>artexplorer</code> avec la permission <strong>Contents : lecture et écriture</strong>.
+        Il reste sur cet ordinateur (rien n'est envoyé ailleurs). Voir <code>admin/GUIDE.md</code>.
+      </p>
+      <div class="ad-token__row">
+        <input id="token-input" type="password" class="ad-input" placeholder="github_pat_…"
+               autocomplete="off" spellcheck="false" />
+        <button id="token-save" class="ad-btn ad-btn--primary" type="button">Enregistrer</button>
+        <button id="token-clear" class="ad-btn" type="button">Oublier</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="ad-main">
+    <div class="ad-toolbar">
+      <input id="search" type="search" class="ad-input" placeholder="Filtrer par titre ou artiste…" />
+      <span id="count" class="ad-count"></span>
+      <button id="add" class="ad-btn ad-btn--primary" type="button">+ Ajouter une œuvre</button>
+    </div>
+    <div id="list" class="ad-list"></div>
+    <div id="empty" class="ad-empty" hidden>
+      <p>Clique sur <strong>↓ Tirer</strong> pour charger le catalogue depuis GitHub.</p>
+    </div>
+  </main>
+
+  <!-- Éditeur d'une œuvre -->
+  <div id="editor" class="ad-editor" hidden>
+    <div class="ad-editor__panel" role="dialog" aria-modal="true" aria-labelledby="editor-title">
+      <div class="ad-editor__bar">
+        <strong id="editor-title">Œuvre</strong>
+        <button id="editor-close" class="ad-btn ad-btn--icon" type="button" aria-label="Fermer">✕</button>
+      </div>
+      <form id="form" class="ad-form"></form>
+      <div class="ad-editor__errors" id="form-errors"></div>
+      <div class="ad-editor__foot">
+        <button id="form-cancel" class="ad-btn" type="button">Annuler</button>
+        <button id="form-save" class="ad-btn ad-btn--primary" type="button">Enregistrer dans la liste</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="ad-toast" hidden></div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

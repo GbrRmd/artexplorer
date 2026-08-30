@@ -28,12 +28,14 @@ modules pédagogiques autonomes (contrat `id/title/icon/mount/unmount`, enregist
 
 ```
 index.html            Coquille (SPA légère)
-config.js             Config Firebase/Cloudinary (TODO, off pour l'instant)
+config.js             Config : source des données, dépôt (admin), Cloudinary TODO
 css/                  tokens / base / components (design system)
-js/core/              shell, registry, theme, utils
+js/core/              shell, registry, theme, utils, catalog(+schema)
 js/modules/gallery/   Module Galerie (voir plus bas)
 js/modules/ia/        Module "Comprendre l'IA" (placeholder)
-assets/data/artworks.mock.json   Données TEST (15 œuvres + anecdotes)
+assets/data/artworks.json   Catalogue (15 œuvres + anecdotes), édité via /admin/
+admin/               Atelier du catalogue (édition + publication GitHub) + GUIDE.md
+scripts/             validate-catalog.mjs (contrôle du JSON, aussi en CI)
 assets/mascot/        savais-tu.png (bouton), samy.png (raton overlay)
 ```
 
@@ -43,14 +45,28 @@ assets/mascot/        savais-tu.png (bouton), samy.png (raton overlay)
 - **Modale fiche** : image toujours ajustée (`contain`) + fond flouté + **mode focus** (clic image), mini-frise chronologique, **mascotte « Le savais-tu ? »** (raton sur l'image → overlay Samy donnant jusqu'à 3 **anecdotes**).
 - **Recherche + filtres repliables** (`filters.js`) : facettes Thèmes / Techniques / **Artistes**, compteurs "disponibles" (valeurs sans combo possible **grisées**), barre fermée par défaut.
 - **3 vues** (`js/modules/gallery/index.js`) : **Grille** · **Constellation** (bulles par thème) · **Frise** (`timeline.js`, chronologie verticale proportionnelle, an 0 → année courante).
-- Périodes historiques : `periods.js` (Préhistoire → Contemporain, couleurs, échelle).
-- Données : `artworks.mock.json` (15 œuvres, dont **Lascaux** préhistorique + 2 **guadeloupéennes** : roches gravées de Trois-Rivières, Le Serment des ancêtres de Lethière). Chaque œuvre a un tableau `anecdotes` (court, langage ado).
+- Périodes historiques : `periods.js` (Préhistoire → Contemporain, couleurs, échelle). La vue Frise affiche une **légende de toutes les périodes** (celles sans œuvre restent grisées).
+- Données : `assets/data/artworks.json` (15 œuvres, dont **Lascaux** préhistorique + 2 **guadeloupéennes** : roches gravées de Trois-Rivières, Le Serment des ancêtres de Lethière). Chaque œuvre a un tableau `anecdotes` (court, langage ado).
 
-## Prochaine étape — P3
+## Données — P3 fait (JSON versionné + atelier)
 
-Passer le catalogue **et les anecdotes** du JSON local à **Firebase Firestore** (lecture
-seule) + cache IndexedDB (voir `config.js`, `js/core/` à créer : `firebase.js`, `cache.js`).
-Plan : **P3** Firestore → **P4** pipeline Cloudinary images → **P5** module IA → P6+.
+Décision : **pas de Firebase**. Le catalogue vit en **JSON dans le dépôt**, servi en
+statique par Pages. Motifs : coût zéro réel, « aucun tracker » (pas de connexion Google
+depuis les tel des élèves), zéro dépendance, historique Git + retour arrière gratuits.
+Firestore reste une option si un jour édition sans redéploiement multi-rédacteurs.
+
+- **`js/core/catalog.js`** : source unique. Réseau d'abord + copie locale de secours
+  (hors-ligne / CDI). `meta.themes` / `meta.techniques` (+ compteurs) **dérivés** des
+  œuvres — rien à maintenir à la main. Changer de source = ce seul fichier.
+- **`js/core/catalog-schema.js`** : contrat + validation, partagé app / admin / CI.
+- **`admin/`** : atelier web (vanilla) pour non-technicien·ne. Boutons **Tirer** /
+  **Publier** via l'API GitHub Contents ; auth = **fine-grained PAT** (repo `artexplorer`,
+  permission *Contents: write*) collé une fois, stocké dans le navigateur. Voir `admin/GUIDE.md`.
+- **`scripts/validate-catalog.mjs`** (`npm run validate`) + workflow
+  `.github/workflows/validate-catalog.yml` : filet de sécurité au push.
+
+Plan restant : **P4** pipeline Cloudinary images (upload non signé dans l'atelier) →
+**P5** module IA → P6+.
 
 ## Conventions
 

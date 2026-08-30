@@ -28,8 +28,17 @@ export const CONFIG = {
 
   // --- Données ---
   data: {
-    // Tant que Firebase est off, on lit ce fichier mock local.
-    mockArtworks: 'assets/data/artworks.mock.json',
+    // Catalogue servi en statique par GitHub Pages, édité via /admin/.
+    // Lu par js/core/catalog.js (réseau + secours local, meta dérivée).
+    catalog: 'assets/data/artworks.json',
+  },
+
+  // --- Dépôt (utilisé par la page d'administration /admin/) ---
+  repo: {
+    owner: 'GbrRmd',
+    name: 'artexplorer',
+    branch: 'main',
+    dataPath: 'assets/data/artworks.json',
   },
 
   // --- Préférences d'expérience ---
