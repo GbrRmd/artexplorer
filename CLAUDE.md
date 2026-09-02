@@ -33,7 +33,7 @@ css/                  tokens / base / components (design system)
 js/core/              shell, registry, theme, utils, catalog(+schema)
 js/modules/gallery/   Module Galerie (voir plus bas)
 js/modules/ia/        Module "Comprendre l'IA" (placeholder)
-assets/data/artworks.json   Catalogue (15 œuvres + anecdotes), édité via /admin/
+assets/data/artworks.json   Catalogue (29 œuvres, anecdotes sourcées), édité via /admin/
 admin/               Atelier du catalogue (édition + publication GitHub) + GUIDE.md
 scripts/             validate-catalog.mjs (contrôle du JSON, aussi en CI)
 assets/mascot/        savais-tu.png (bouton), samy.png (raton overlay)
@@ -43,10 +43,10 @@ assets/mascot/        savais-tu.png (bouton), samy.png (raton overlay)
 
 - Grille responsive + cartes **tilt 3D**, repli couleur+emoji si image absente.
 - **Modale fiche** : image toujours ajustée (`contain`) + fond flouté + **mode focus** (clic image), mini-frise chronologique, **mascotte « Le savais-tu ? »** (raton sur l'image → overlay Samy donnant jusqu'à 3 **anecdotes**).
-- **Recherche + filtres repliables** (`filters.js`) : facettes Thèmes / Techniques / **Artistes**, compteurs "disponibles" (valeurs sans combo possible **grisées**), barre fermée par défaut.
+- **Recherche + filtres repliables** (`filters.js`) : recherche sans accents / multi-champs (titre, artiste, technique, thèmes, description) ; facettes Thèmes / Techniques / **Artistes** ; les valeurs sans combinaison possible sont **masquées** (on ne voit que les couples réalisables), et une facette entièrement vide disparaît ; barre fermée par défaut.
 - **3 vues** (`js/modules/gallery/index.js`) : **Grille** · **Constellation** (bulles par thème) · **Frise** (`timeline.js`, chronologie verticale proportionnelle, an 0 → année courante).
 - Périodes historiques : `periods.js` (Préhistoire → Contemporain, couleurs, échelle). La vue Frise affiche une **légende de toutes les périodes** (celles sans œuvre restent grisées).
-- Données : `assets/data/artworks.json` (15 œuvres, dont **Lascaux** préhistorique + 2 **guadeloupéennes** : roches gravées de Trois-Rivières, Le Serment des ancêtres de Lethière). Chaque œuvre a un tableau `anecdotes` (court, langage ado).
+- Données : `assets/data/artworks.json` (**29 œuvres**). Focus **cursus collège 6e-3e** (Préhistoire → 1908 : Lascaux, Néfertiti, Vénus de Milo, Michel-Ange, Vermeer, Hokusai, Manet, Seurat, Cézanne, Rodin, Klimt…) et **Caraïbes / DROM** (Lethière, roches gravées de Guadeloupe, Pissarro né à St-Thomas, Brunias en Dominique). Techniques variées (Huile, Estampe, Sculpture, Fresque, Lithographie, Tempera, Feuille d'or, Peinture rupestre, Gravure sur roche). Chaque `anecdotes[]` = objets `{ text, source }` (court, langage ado, **source citée**) ; le rendu et le schéma acceptent aussi les anciennes chaînes.
 
 ## Données — P3 fait (JSON versionné + atelier)
 

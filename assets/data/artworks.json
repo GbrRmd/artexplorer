@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": 3,
-    "updatedAt": "2026-08-30",
-    "note": "Catalogue d'Arts Plastiques — édité via /admin/. Les listes de thèmes / techniques (et leurs compteurs) sont dérivées à la lecture par js/core/catalog.js : rien à maintenir ici à la main. Images via Wikimedia (Special:FilePath) en attendant Cloudinary (P4)."
+    "version": 4,
+    "updatedAt": "2026-09-02",
+    "note": "Catalogue d'Arts Plastiques — édité via /admin/. Œuvres de référence du cursus collège (6e-3e) + focus Caraïbes/DROM. Les listes de thèmes / techniques (et leurs compteurs) sont dérivées à la lecture par js/core/catalog.js. Anecdotes = { text, source }. Images via Wikimedia (Special:FilePath) en attendant Cloudinary (P4)."
   },
   "artworks": [
     {
@@ -16,9 +16,41 @@
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lascaux%20painting.jpg?width=800",
       "description": "Des animaux géants peints sur les parois d'une grotte, il y a 17 000 ans. Nos ancêtres n'avaient ni écriture ni villes, mais ils dessinaient déjà des chevaux et des taureaux à la lueur des flammes.",
       "anecdotes": [
-        "Ces peintures ont 17 000 ans. Elles sont plus vieilles que l'écriture, que les villes, que tout ce que tu connais.",
-        "Elles ont été découvertes en 1940 par quatre ados et leur chien Robot, qui a filé dans un trou.",
-        "La vraie grotte est fermée : notre souffle abîmait les couleurs. On visite une copie parfaite juste à côté."
+        { "text": "Ces peintures ont 17 000 ans : plus vieilles que l'écriture, que les villes, que tout ce que tu connais.", "source": "Centre des monuments nationaux — Lascaux" },
+        { "text": "Découvertes en 1940 par quatre ados et leur chien Robot, qui a filé dans un trou.", "source": "Ministère de la Culture" },
+        { "text": "La vraie grotte est fermée : notre souffle abîmait les couleurs. On visite une copie parfaite juste à côté.", "source": "Centre des monuments nationaux — Lascaux" }
+      ]
+    },
+    {
+      "id": "nefertiti-buste",
+      "title": "Le buste de Néfertiti",
+      "artist": "Thoutmôsis (atelier)",
+      "year": -1345,
+      "technique": "Sculpture",
+      "themes": ["Portrait", "Histoire"],
+      "dominantColor": "#4a6a86",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nofretete%20Neues%20Museum.jpg?width=800",
+      "description": "Le buste d'une reine d'Égypte, sculpté il y a plus de 3 300 ans. Un long cou, une couronne bleue, un visage parfait : c'est l'un des plus célèbres portraits de l'Antiquité.",
+      "anecdotes": [
+        { "text": "Retrouvé en 1912 dans l'atelier abandonné d'un sculpteur, à moitié enfoui.", "source": "Neues Museum, Berlin" },
+        { "text": "Il lui manque un œil : le buste servait sûrement de modèle d'atelier, jamais terminé.", "source": "Wikipédia" },
+        { "text": "L'Égypte réclame son retour depuis longtemps, mais il est toujours à Berlin.", "source": "Neues Museum, Berlin" }
+      ]
+    },
+    {
+      "id": "venus-de-milo",
+      "title": "La Vénus de Milo",
+      "artist": "Alexandros d'Antioche",
+      "year": -120,
+      "technique": "Sculpture",
+      "themes": ["Mythologie", "Corps"],
+      "dominantColor": "#9a8f7d",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Venus%20de%20Milo.JPG?width=800",
+      "description": "Une déesse grecque en marbre, sans bras. On l'a trouvée cassée sur une île grecque. Ce qu'elle faisait de ses bras, personne ne le sait : c'est tout son mystère.",
+      "anecdotes": [
+        { "text": "Découverte en 1820 par un paysan sur l'île de Milos, en Grèce.", "source": "Musée du Louvre" },
+        { "text": "Ses bras n'ont jamais été retrouvés. Tenait-elle une pomme ? Un miroir ? Mystère total.", "source": "Musée du Louvre" },
+        { "text": "Elle a plus de 2 000 ans et reste la star grecque du Louvre.", "source": "Musée du Louvre" }
       ]
     },
     {
@@ -32,9 +64,25 @@
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hi%C3%A9roglyphe%2C%20Roches%20grav%C3%A9es%2C%20Trois-Rivi%C3%A8res%2C%20Guadeloupe.jpg?width=800",
       "description": "Des visages et des symboles gravés dans la roche par les premiers habitants de la Guadeloupe. Le plus vieil art de l'île, laissé par les Amérindiens bien avant l'arrivée des bateaux européens.",
       "anecdotes": [
-        "Ces dessins gravés dans la pierre ont été faits par les Amérindiens de Guadeloupe il y a plus de 1500 ans.",
-        "Personne ne sait exactement ce qu'ils racontent : des visages, des animaux, des esprits ? Le mystère reste entier.",
-        "Tu peux les voir en vrai à Trois-Rivières, en Guadeloupe. C'est notre plus vieil art local."
+        { "text": "Gravés par les Amérindiens de Guadeloupe il y a plus de 1 500 ans.", "source": "Parc archéologique des Roches gravées, Trois-Rivières" },
+        { "text": "Personne ne sait exactement ce qu'ils racontent : des visages, des animaux, des esprits ? Le mystère reste entier.", "source": "DAC Guadeloupe" },
+        { "text": "Tu peux les voir en vrai à Trois-Rivières, en Guadeloupe : c'est notre plus vieil art local.", "source": "Parc archéologique des Roches gravées, Trois-Rivières" }
+      ]
+    },
+    {
+      "id": "botticelli-naissance-venus",
+      "title": "La Naissance de Vénus",
+      "artist": "Sandro Botticelli",
+      "year": 1486,
+      "technique": "Tempera",
+      "themes": ["Mythologie", "Amour", "Nature"],
+      "dominantColor": "#7c8a6a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sandro%20Botticelli%20-%20La%20nascita%20di%20Venere%20-%20Google%20Art%20Project%20-%20edited.jpg?width=800",
+      "description": "La déesse Vénus arrive sur le rivage debout sur un coquillage, poussée par le vent. Peinte il y a plus de 500 ans à Florence, elle célèbre la beauté idéale de la Renaissance.",
+      "anecdotes": [
+        { "text": "Vénus tient en équilibre sur un coquillage géant. Comment ? Bonne question, personne ne sait.", "source": "Galerie des Offices, Florence" },
+        { "text": "Peinte sur toile alors que tout le monde peignait sur bois. Botticelli, le rebelle.", "source": "Wikipédia" },
+        { "text": "Le modèle serait la plus belle femme de Florence, morte jeune : il l'a rendue éternelle.", "source": "Galerie des Offices, Florence" }
       ]
     },
     {
@@ -48,41 +96,55 @@
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mona%20Lisa%2C%20by%20Leonardo%20da%20Vinci%2C%20from%20C2RMF%20retouched.jpg?width=800",
       "description": "Le tableau le plus visité de la planète, au Louvre. Son sourire semble changer selon l'angle où on le regarde. Léonard l'a gardé avec lui toute sa vie sans jamais le livrer.",
       "anecdotes": [
-        "Elle a été volée en 1911 par un ouvrier qui l'a cachée deux ans sous son lit.",
-        "Elle n'a pas de sourcils. Mode de l'époque ou tableau pas fini ? Le débat continue.",
-        "Son sourire change selon l'angle : Léonard a flouté exprès les coins de sa bouche."
+        { "text": "Volée en 1911 par un ouvrier qui l'a cachée deux ans sous son lit.", "source": "Musée du Louvre" },
+        { "text": "Elle n'a pas de sourcils : mode de l'époque ou tableau pas fini ? Le débat continue.", "source": "Wikipédia" },
+        { "text": "Son sourire change selon l'angle : Léonard a flouté exprès les coins de sa bouche.", "source": "Musée du Louvre" }
       ]
     },
     {
-      "id": "botticelli-naissance-venus",
-      "title": "La Naissance de Vénus",
-      "artist": "Sandro Botticelli",
-      "year": 1486,
-      "technique": "Tempera",
-      "themes": ["Nature", "Amour"],
-      "dominantColor": "#7c8a6a",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sandro%20Botticelli%20-%20La%20nascita%20di%20Venere%20-%20Google%20Art%20Project%20-%20edited.jpg?width=800",
-      "description": "La déesse Vénus arrive sur le rivage debout sur un coquillage, poussée par le vent. Peinte il y a plus de 500 ans à Florence, elle célèbre la beauté idéale de la Renaissance.",
+      "id": "michel-ange-creation-adam",
+      "title": "La Création d'Adam",
+      "artist": "Michel-Ange",
+      "year": 1512,
+      "technique": "Fresque",
+      "themes": ["Religion", "Corps"],
+      "dominantColor": "#b98a5e",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Creation%20of%20Adam%20perspective%20fix.jpg?width=800",
+      "description": "Dieu tend le doigt vers Adam pour lui donner la vie. Leurs mains ne se touchent presque pas : ce minuscule espace est l'un des détails les plus célèbres de tout l'art.",
       "anecdotes": [
-        "Vénus tient en équilibre sur un coquillage géant. Comment ? Bonne question, personne ne sait.",
-        "Peinte sur toile alors que tout le monde peignait sur bois. Botticelli, le rebelle.",
-        "Le modèle serait la plus belle femme de Florence. Morte jeune, il l'a rendue éternelle."
+        { "text": "Michel-Ange a peint le plafond de la chapelle Sixtine juché sur un échafaudage, pendant 4 ans.", "source": "Musées du Vatican" },
+        { "text": "Des médecins ont remarqué que la forme rouge autour de Dieu ressemble à un cerveau humain.", "source": "Wikipédia" },
+        { "text": "Il détestait ce chantier : il se voyait sculpteur, pas peintre.", "source": "Musées du Vatican" }
       ]
     },
     {
-      "id": "vermeer-jeune-fille-perle",
-      "title": "La Jeune Fille à la perle",
-      "artist": "Johannes Vermeer",
-      "year": 1665,
+      "id": "bruegel-tour-babel",
+      "title": "La Tour de Babel",
+      "artist": "Pieter Bruegel l'Ancien",
+      "year": 1563,
       "technique": "Huile",
-      "themes": ["Portrait", "Émotion"],
-      "dominantColor": "#0e1c2b",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1665%20Girl%20with%20a%20Pearl%20Earring.jpg?width=800",
-      "description": "On l'appelle « la Joconde du Nord ». Une jeune fille se retourne, une grosse perle brille à son oreille. Personne ne sait qui elle est vraiment : tout le mystère est dans son regard.",
+      "themes": ["Histoire", "Ville"],
+      "dominantColor": "#8a6a3f",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pieter%20Bruegel%20the%20Elder%20-%20The%20Tower%20of%20Babel%20(Vienna)%20-%20Google%20Art%20Project%20-%20edited.jpg?width=800",
+      "description": "Une tour gigantesque qui monte jusqu'aux nuages, tirée d'une histoire de la Bible. Regarde les milliers de détails : ouvriers, grues, maisons… toute une ville en chantier.",
       "anecdotes": [
-        "On l'appelle « la Joconde du Nord », mais on ne sait même pas qui c'est. Zéro info, juste un regard.",
-        "La fameuse perle est probablement fausse : trop grosse pour être vraie à l'époque.",
-        "Un roman et un film sont nés de ce simple regard. Pas mal pour une inconnue."
+        { "text": "La tour penche déjà : Bruegel montre qu'elle est vouée à s'écrouler.", "source": "Kunsthistorisches Museum, Vienne" },
+        { "text": "Il s'est inspiré du Colisée de Rome, qu'il avait vu de ses yeux.", "source": "Wikipédia" }
+      ]
+    },
+    {
+      "id": "arcimboldo-vertumne",
+      "title": "Vertumne",
+      "artist": "Giuseppe Arcimboldo",
+      "year": 1591,
+      "technique": "Huile",
+      "themes": ["Portrait", "Nature"],
+      "dominantColor": "#6b5a2a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vertumnus%20%C3%A5rstidernas%20gud%20m%C3%A5lad%20av%20Giuseppe%20Arcimboldo%201591%20-%20Skoklosters%20slott%20-%2091503.jpg?width=800",
+      "description": "Un portrait fait entièrement de fruits et de légumes ! C'est l'empereur Rodolphe II déguisé en dieu des saisons. De loin un visage, de près un potager.",
+      "anecdotes": [
+        { "text": "C'est l'empereur en personne, et il a adoré être peint en tas de fruits et légumes.", "source": "Château de Skokloster, Suède" },
+        { "text": "Quatre siècles avant les filtres et Photoshop, Arcimboldo faisait déjà des visages-illusions.", "source": "Wikipédia" }
       ]
     },
     {
@@ -96,9 +158,72 @@
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Night%20Watch%20-%20HD.jpg?width=800",
       "description": "Un groupe de gardes qui se met en marche, saisi en plein mouvement — très rare pour l'époque. La lumière éclaire certains visages et en laisse d'autres dans l'ombre, comme un projecteur de théâtre.",
       "anecdotes": [
-        "Le titre est faux : la scène se passe en plein jour ! Le tableau était juste noirci par la crasse.",
-        "Il a été découpé aux ciseaux en 1715 pour rentrer entre deux portes. Oui, découpé.",
-        "Un homme l'a lacéré au couteau en 1975. Restauré, mais il en garde des cicatrices."
+        { "text": "Le titre est faux : la scène se passe en plein jour ! Le tableau était juste noirci par la crasse.", "source": "Rijksmuseum, Amsterdam" },
+        { "text": "Il a été découpé aux ciseaux en 1715 pour rentrer entre deux portes. Oui, découpé.", "source": "Rijksmuseum, Amsterdam" },
+        { "text": "Un homme l'a lacéré au couteau en 1975 ; restauré, il en garde des cicatrices.", "source": "Wikipédia" }
+      ]
+    },
+    {
+      "id": "vermeer-jeune-fille-perle",
+      "title": "La Jeune Fille à la perle",
+      "artist": "Johannes Vermeer",
+      "year": 1665,
+      "technique": "Huile",
+      "themes": ["Portrait", "Émotion"],
+      "dominantColor": "#0e1c2b",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1665%20Girl%20with%20a%20Pearl%20Earring.jpg?width=800",
+      "description": "On l'appelle « la Joconde du Nord ». Une jeune fille se retourne, une grosse perle brille à son oreille. Personne ne sait qui elle est vraiment : tout le mystère est dans son regard.",
+      "anecdotes": [
+        { "text": "On l'appelle « la Joconde du Nord », mais on ne sait même pas qui c'est. Zéro info, juste un regard.", "source": "Mauritshuis, La Haye" },
+        { "text": "La fameuse perle est probablement fausse : trop grosse pour être vraie à l'époque.", "source": "Wikipédia" },
+        { "text": "Un roman et un film sont nés de ce simple regard. Pas mal pour une inconnue.", "source": "Mauritshuis, La Haye" }
+      ]
+    },
+    {
+      "id": "brunias-marche-antilles",
+      "title": "Le Marché aux toiles, Dominique",
+      "artist": "Agostino Brunias",
+      "year": 1780,
+      "technique": "Huile",
+      "themes": ["Histoire", "Ville"],
+      "dominantColor": "#7a5a3f",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Agostino%20Brunias%20-%20Linen%20Market%2C%20Dominica%20-%20Google%20Art%20Project.jpg?width=800",
+      "description": "Un marché coloré sur l'île de la Dominique, aux Antilles, au XVIIIe siècle. Le peintre montre la vie quotidienne des habitants des Caraïbes : une scène très rare pour l'époque.",
+      "anecdotes": [
+        { "text": "L'un des rares peintres à représenter la société des Antilles au XVIIIe siècle.", "source": "Yale Center for British Art" },
+        { "text": "Attention : ses tableaux embellissaient la réalité de la colonisation. À regarder d'un œil critique.", "source": "Wikipédia" }
+      ]
+    },
+    {
+      "id": "lethiere-serment-ancetres",
+      "title": "Le Serment des ancêtres",
+      "artist": "Guillaume Guillon-Lethière",
+      "year": 1822,
+      "technique": "Huile",
+      "themes": ["Histoire", "Émotion"],
+      "dominantColor": "#3a2e22",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Le%20Serment%20des%20Anc%C3%AAtres%2C%201823.jpg?width=800",
+      "description": "Deux hommes se serrent la main sous le regard du ciel, unis pour la liberté d'Haïti. Une œuvre puissante contre l'esclavage, peinte par un artiste né en Guadeloupe.",
+      "anecdotes": [
+        { "text": "Le peintre est né en Guadeloupe, fils d'une femme autrefois esclave.", "source": "Panorama de l'art — RMN" },
+        { "text": "Le tableau célèbre l'union des Haïtiens pour leur liberté : un symbole énorme contre l'esclavage.", "source": "Musée du Louvre" },
+        { "text": "Perdu pendant des années, il a été retrouvé roulé dans une cathédrale d'Haïti après un séisme.", "source": "Wikipédia" }
+      ]
+    },
+    {
+      "id": "delacroix-liberte-guidant-peuple",
+      "title": "La Liberté guidant le peuple",
+      "artist": "Eugène Delacroix",
+      "year": 1830,
+      "technique": "Huile",
+      "themes": ["Histoire", "Émotion"],
+      "dominantColor": "#5c4632",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eug%C3%A8ne%20Delacroix%20-%20La%20libert%C3%A9%20guidant%20le%20peuple.jpg?width=800",
+      "description": "Une femme brandit le drapeau français au-dessus d'une révolution. Ce n'est pas une vraie personne : c'est la Liberté elle-même. Un symbole de la France, mis même sur des billets.",
+      "anecdotes": [
+        { "text": "La femme au drapeau n'existe pas : c'est la Liberté en personne, un symbole.", "source": "Musée du Louvre" },
+        { "text": "Le personnage au chapeau haut-de-forme, à gauche, serait Delacroix lui-même.", "source": "Wikipédia" },
+        { "text": "Ce tableau était sur les billets de 100 francs : tes grands-parents l'avaient en poche.", "source": "Musée du Louvre" }
       ]
     },
     {
@@ -112,57 +237,54 @@
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tsunami%20by%20hokusai%2019th%20century.jpg?width=800",
       "description": "Une vague géante prête à engloutir des barques, avec le mont Fuji minuscule au loin. Cette estampe japonaise a été imprimée à des milliers d'exemplaires : c'est l'image du Japon la plus connue au monde.",
       "anecdotes": [
-        "Ce bleu intense vient d'un pigment européen entré en douce : le Japon était fermé à l'époque.",
-        "Ce n'est pas un tsunami mais une « vague scélérate », un vrai phénomène de fou en pleine mer.",
-        "Regarde au fond : la petite bosse, c'est le mont Fuji. Hokusai l'a caché sous la vague."
+        { "text": "Ce bleu intense vient d'un pigment européen entré en douce : le Japon était fermé à l'époque.", "source": "The Met, New York" },
+        { "text": "Ce n'est pas un tsunami mais une « vague scélérate », un vrai phénomène de fou en pleine mer.", "source": "Wikipédia" },
+        { "text": "Regarde au fond : la petite bosse, c'est le mont Fuji. Hokusai l'a caché sous la vague.", "source": "The Met, New York" }
       ]
     },
     {
-      "id": "delacroix-liberte-guidant-peuple",
-      "title": "La Liberté guidant le peuple",
-      "artist": "Eugène Delacroix",
-      "year": 1830,
+      "id": "turner-pluie-vapeur-vitesse",
+      "title": "Pluie, vapeur et vitesse",
+      "artist": "William Turner",
+      "year": 1844,
       "technique": "Huile",
-      "themes": ["Histoire", "Émotion"],
-      "dominantColor": "#5c4632",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eug%C3%A8ne%20Delacroix%20-%20La%20libert%C3%A9%20guidant%20le%20peuple.jpg?width=800",
-      "description": "Une femme qui brandit le drapeau français au-dessus d'une révolution. Ce n'est pas une vraie personne : c'est la Liberté elle-même. Ce tableau est un symbole de la France, on l'a même mis sur des billets.",
+      "themes": ["Lumière", "Nature"],
+      "dominantColor": "#b6873f",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rain%20Steam%20and%20Speed%20the%20Great%20Western%20Railway.jpg?width=800",
+      "description": "Un train fonce dans la pluie et le brouillard. Presque tout est flou : Turner peint la vitesse et la lumière plutôt que les détails. De la vapeur… presque de l'abstraction, un siècle en avance.",
       "anecdotes": [
-        "La femme au drapeau n'existe pas : c'est la Liberté en personne, un symbole.",
-        "Le personnage au chapeau haut-de-forme, à gauche, serait Delacroix lui-même.",
-        "Ce tableau était sur les billets de 100 francs. Tes grands-parents l'avaient en poche."
+        { "text": "L'un des premiers tableaux à montrer un train : la technologie qui débarque dans l'art.", "source": "The National Gallery, Londres" },
+        { "text": "Regarde devant la locomotive : un petit lièvre court pour ne pas se faire écraser.", "source": "Wikipédia" }
       ]
     },
     {
-      "id": "lethiere-serment-ancetres",
-      "title": "Le Serment des ancêtres",
-      "artist": "Guillaume Guillon-Lethière",
-      "year": 1822,
+      "id": "pissarro-saint-thomas",
+      "title": "Deux femmes causant au bord de la mer, Saint-Thomas",
+      "artist": "Camille Pissarro",
+      "year": 1856,
       "technique": "Huile",
-      "themes": ["Histoire", "Émotion"],
-      "dominantColor": "#3a2e22",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Le%20Serment%20des%20Anc%C3%AAtres%2C%201823.jpg?width=800",
-      "description": "Deux hommes se serrent la main sous le regard de Dieu, unis pour la liberté d'Haïti. Une œuvre puissante contre l'esclavage, peinte par un artiste né en Guadeloupe.",
+      "themes": ["Mer", "Nature"],
+      "dominantColor": "#5b7d86",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Camille%20Pissarro%2C%20Two%20Women%20Chatting%20by%20the%20Sea%2C%20St.%20Thomas%2C%201856%2C%20NGA%2066428.jpg?width=800",
+      "description": "Deux femmes discutent au bord de la mer sur l'île de Saint-Thomas, dans les Caraïbes. Le peintre, Camille Pissarro, y est né avant de devenir un grand maître de l'impressionnisme.",
       "anecdotes": [
-        "Le peintre, Guillaume Guillon-Lethière, est né en Guadeloupe, fils d'une femme autrefois esclave.",
-        "Le tableau célèbre l'union des Haïtiens pour leur liberté : un symbole énorme contre l'esclavage.",
-        "Perdu pendant des années, il a été retrouvé roulé dans une cathédrale d'Haïti après un séisme."
+        { "text": "Camille Pissarro est né dans les Caraïbes, sur l'île de Saint-Thomas.", "source": "National Gallery of Art, Washington" },
+        { "text": "Il deviendra le « père » des impressionnistes et le professeur de Cézanne et Gauguin.", "source": "Wikipédia" }
       ]
     },
     {
-      "id": "renoir-moulin-galette",
-      "title": "Bal du moulin de la Galette",
-      "artist": "Auguste Renoir",
-      "year": 1876,
+      "id": "manet-dejeuner-herbe",
+      "title": "Le Déjeuner sur l'herbe",
+      "artist": "Édouard Manet",
+      "year": 1863,
       "technique": "Huile",
-      "themes": ["Nature", "Amour"],
-      "dominantColor": "#6b5a7a",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pierre-Auguste%20Renoir%2C%20Le%20Moulin%20de%20la%20Galette.jpg?width=800",
-      "description": "Une fête en plein air à Paris, avec des gens qui dansent sous les arbres. Regarde les taches de lumière du soleil qui passent entre les feuilles : Renoir voulait peindre la joie d'un dimanche après-midi.",
+      "themes": ["Nature", "Corps"],
+      "dominantColor": "#46503a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%89douard%20Manet%20-%20Le%20D%C3%A9jeuner%20sur%20l'herbe.jpg?width=800",
+      "description": "Un pique-nique qui a fait scandale en 1863 : une femme nue assise à côté d'hommes habillés, et qui te regarde droit dans les yeux. Le public a détesté… puis adoré.",
       "anecdotes": [
-        "Renoir a peint les taches de soleil entre les arbres. À l'époque, on trouvait ça « mal fini ».",
-        "Il a fait poser ses potes : ce sont de vraies personnes qui faisaient la fête à Montmartre.",
-        "Vendu 78 millions de dollars en 1990, l'une des ventes les plus chères de l'histoire."
+        { "text": "Refusé par le grand salon officiel, il a été montré au « Salon des refusés ».", "source": "Musée d'Orsay" },
+        { "text": "Le scandale ? La femme nue fixe le spectateur, comme si de rien n'était.", "source": "Musée d'Orsay" }
       ]
     },
     {
@@ -171,14 +293,45 @@
       "artist": "Claude Monet",
       "year": 1872,
       "technique": "Huile",
-      "themes": ["Mer", "Nature"],
+      "themes": ["Mer", "Lumière"],
       "dominantColor": "#3d5a6c",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Monet%20-%20Impression%2C%20Sunrise.jpg?width=800",
-      "description": "Un port dans la brume au lever du soleil, peint en taches rapides. C'est ce tableau qui a donné son nom à l'« impressionnisme » — au départ une moquerie de critiques, devenue le mouvement le plus aimé de tous.",
+      "description": "Un port dans la brume au lever du soleil, peint en taches rapides. C'est ce tableau qui a donné son nom à l'« impressionnisme » — au départ une moquerie, devenue le mouvement le plus aimé de tous.",
       "anecdotes": [
-        "Le mot « impressionnisme » vient d'une moquerie : un critique a dit que c'était juste une « impression », pas fini.",
-        "Ce tableau a été volé en 1985, puis retrouvé cinq ans plus tard. Ouf.",
-        "Le soleil orange a la même luminosité que le ciel : ton cerveau le voit briller, mais c'est une illusion."
+        { "text": "Le mot « impressionnisme » vient d'une moquerie : un critique a dit que c'était juste une « impression », pas fini.", "source": "Musée Marmottan Monet, Paris" },
+        { "text": "Ce tableau a été volé en 1985, puis retrouvé cinq ans plus tard. Ouf.", "source": "Wikipédia" },
+        { "text": "Le soleil orange a la même luminosité que le ciel : ton cerveau le voit briller, c'est une illusion.", "source": "Musée Marmottan Monet, Paris" }
+      ]
+    },
+    {
+      "id": "renoir-moulin-galette",
+      "title": "Bal du moulin de la Galette",
+      "artist": "Auguste Renoir",
+      "year": 1876,
+      "technique": "Huile",
+      "themes": ["Ville", "Amour"],
+      "dominantColor": "#6b5a7a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pierre-Auguste%20Renoir%2C%20Le%20Moulin%20de%20la%20Galette.jpg?width=800",
+      "description": "Une fête en plein air à Paris, avec des gens qui dansent sous les arbres. Regarde les taches de lumière du soleil entre les feuilles : Renoir voulait peindre la joie d'un dimanche après-midi.",
+      "anecdotes": [
+        { "text": "Renoir a peint les taches de soleil entre les arbres. À l'époque, on trouvait ça « mal fini ».", "source": "Musée d'Orsay" },
+        { "text": "Il a fait poser ses potes : ce sont de vraies personnes qui faisaient la fête à Montmartre.", "source": "Musée d'Orsay" },
+        { "text": "Vendu 78 millions de dollars en 1990, l'une des ventes les plus chères de l'histoire.", "source": "Wikipédia" }
+      ]
+    },
+    {
+      "id": "seurat-grande-jatte",
+      "title": "Un dimanche après-midi à l'île de la Grande Jatte",
+      "artist": "Georges Seurat",
+      "year": 1884,
+      "technique": "Huile",
+      "themes": ["Ville", "Lumière"],
+      "dominantColor": "#6f7f4a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/A%20Sunday%20on%20La%20Grande%20Jatte%2C%20Georges%20Seurat%2C%201884.jpg?width=800",
+      "description": "Un dimanche au bord de l'eau, peint avec des millions de petits points de couleur. De loin, ton œil mélange les points tout seul : c'est le pointillisme.",
+      "anecdotes": [
+        { "text": "Fait uniquement de petits points : c'est ton œil qui mélange les couleurs, pas le pinceau.", "source": "Art Institute of Chicago" },
+        { "text": "Seurat a mis deux ans et étudié la science des couleurs pour ce seul tableau.", "source": "Wikipédia" }
       ]
     },
     {
@@ -192,9 +345,9 @@
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vincent%20Willem%20van%20Gogh%20127.jpg?width=800",
       "description": "Un bouquet de tournesols dans un vase, tout en jaune. Van Gogh les a peints pour décorer la chambre de son ami le peintre Gauguin. Le jaune était pour lui la couleur du bonheur et de l'amitié.",
       "anecdotes": [
-        "Peints pour décorer la chambre de son pote Gauguin. L'amitié a fini en dispute et une oreille coupée.",
-        "Le jaune, pour Van Gogh, c'était la couleur du bonheur. Il en a mis partout.",
-        "Il en a fait plusieurs versions. Une a été achetée par un Japonais à un prix record."
+        { "text": "Peints pour décorer la chambre de son pote Gauguin. L'amitié a fini en dispute et une oreille coupée.", "source": "Van Gogh Museum, Amsterdam" },
+        { "text": "Le jaune, pour Van Gogh, c'était la couleur du bonheur. Il en a mis partout.", "source": "The National Gallery, Londres" },
+        { "text": "Il en a fait plusieurs versions ; l'une a été achetée à un prix record.", "source": "Wikipédia" }
       ]
     },
     {
@@ -206,11 +359,41 @@
       "themes": ["Nuit", "Nature", "Émotion"],
       "dominantColor": "#1b3a63",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Van%20Gogh%20-%20Starry%20Night%20-%20Google%20Art%20Project.jpg?width=800",
-      "description": "Un ciel qui tourbillonne au-dessus d'un village endormi. Van Gogh l'a peinte depuis la fenêtre de sa chambre d'hôpital. Les étoiles semblent bouger : c'est le tableau le plus célèbre du monde de la nuit.",
+      "description": "Un ciel qui tourbillonne au-dessus d'un village endormi. Van Gogh l'a peinte depuis la fenêtre de sa chambre d'hôpital. Les étoiles semblent bouger : c'est le tableau de la nuit le plus célèbre du monde.",
       "anecdotes": [
-        "Van Gogh l'a peinte enfermé dans un hôpital psychiatrique. Le chaos dans sa tête, il l'a mis dans le ciel.",
-        "Il n'a presque rien vendu de sa vie. Aujourd'hui ça vaut une fortune. Trop tard, Vincent.",
-        "Ses tourbillons ressemblent à la « turbulence » des scientifiques, comprise 70 ans plus tard."
+        { "text": "Peinte alors que Van Gogh était interné en hôpital psychiatrique : le chaos dans sa tête, il l'a mis dans le ciel.", "source": "MoMA, New York" },
+        { "text": "Il n'a presque rien vendu de sa vie. Aujourd'hui ça vaut une fortune. Trop tard, Vincent.", "source": "Wikipédia" },
+        { "text": "Ses tourbillons ressemblent à la « turbulence » des scientifiques, comprise 70 ans plus tard.", "source": "MoMA, New York" }
+      ]
+    },
+    {
+      "id": "cezanne-sainte-victoire",
+      "title": "La Montagne Sainte-Victoire",
+      "artist": "Paul Cézanne",
+      "year": 1890,
+      "technique": "Huile",
+      "themes": ["Nature", "Lumière"],
+      "dominantColor": "#7c7a4e",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cezanne%20-%20Mont%20Sainte-Victoire%2C%20Courtauld.jpg?width=800",
+      "description": "Une montagne du sud de la France que Cézanne a peinte des dizaines de fois. Il la construit par touches presque carrées, comme de petits cubes : ça annonce le cubisme.",
+      "anecdotes": [
+        { "text": "Cézanne a peint cette même montagne plus de 80 fois.", "source": "Wikipédia" },
+        { "text": "Ses formes géométriques ont ouvert la voie à Picasso et au cubisme.", "source": "Courtauld Gallery, Londres" }
+      ]
+    },
+    {
+      "id": "lautrec-moulin-rouge",
+      "title": "Moulin Rouge, La Goulue",
+      "artist": "Henri de Toulouse-Lautrec",
+      "year": 1891,
+      "technique": "Lithographie",
+      "themes": ["Ville", "Portrait"],
+      "dominantColor": "#c9932e",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/(Albi)%20Moulin-rouge.%20La%20Goulue%20et%20Valentin%20le%20desoss%C3%A9%20-%20Toulouse-Lautrec%201891%20-%20Inv.138.jpg?width=800",
+      "description": "Une affiche pour le cabaret le plus célèbre de Paris, le Moulin Rouge. Aplats de couleurs, silhouettes tranchées : l'ancêtre de la pub et du graphisme moderne.",
+      "anecdotes": [
+        { "text": "C'est une affiche imprimée, collée dans les rues de Paris : de l'art pour tout le monde.", "source": "Musée Toulouse-Lautrec, Albi" },
+        { "text": "Toulouse-Lautrec, tout petit à cause d'une maladie, était la star des nuits de Montmartre.", "source": "Wikipédia" }
       ]
     },
     {
@@ -224,9 +407,39 @@
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Scream.jpg?width=800",
       "description": "Un personnage se tient les joues, la bouche ouverte, sur un pont, sous un ciel rouge sang. Ce n'est pas lui qui crie : Munch disait entendre « le cri infini de la nature ». L'angoisse en un seul dessin.",
       "anecdotes": [
-        "Munch a écrit sur le tableau : « Ne peut avoir été peint que par un fou. » C'était lui.",
-        "Le ciel rouge sang viendrait d'un vrai volcan qui a coloré les ciels du monde en 1883.",
-        "Il en existe quatre versions. Une a été volée en plein jour en 2004, retrouvée deux ans après."
+        { "text": "Munch a écrit sur le tableau : « Ne peut avoir été peint que par un fou. » C'était lui.", "source": "Nasjonalmuseet, Oslo" },
+        { "text": "Le ciel rouge sang viendrait d'un vrai volcan qui a coloré les ciels du monde en 1883.", "source": "Wikipédia" },
+        { "text": "Il en existe quatre versions ; l'une a été volée en plein jour en 2004, retrouvée deux ans après.", "source": "Nasjonalmuseet, Oslo" }
+      ]
+    },
+    {
+      "id": "rodin-le-penseur",
+      "title": "Le Penseur",
+      "artist": "Auguste Rodin",
+      "year": 1904,
+      "technique": "Sculpture",
+      "themes": ["Corps", "Émotion"],
+      "dominantColor": "#4a3b2a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Thinker%20detail%20of%20the%20Gates%20of%20Hell%20Rodin%20mus%C3%A9e%20Rodin%20S.01304%20Paris.jpg?width=800",
+      "description": "Un homme nu, assis, penché en avant, perdu dans ses pensées. Ce corps musclé qui réfléchit est l'une des sculptures les plus connues au monde.",
+      "anecdotes": [
+        { "text": "Au départ, il représentait le poète Dante regardant l'Enfer.", "source": "Musée Rodin, Paris" },
+        { "text": "Il en existe des dizaines de tirages en bronze dans le monde entier.", "source": "Musée Rodin, Paris" }
+      ]
+    },
+    {
+      "id": "rousseau-charmeuse-serpents",
+      "title": "La Charmeuse de serpents",
+      "artist": "Henri Rousseau (le Douanier)",
+      "year": 1907,
+      "technique": "Huile",
+      "themes": ["Nature", "Nuit", "Animaux"],
+      "dominantColor": "#2f5a3a",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rousseau%20-%20La%20Charmeuse%20de%20serpents%2C%20en%201907%2C%20RF%201937%207.jpg?width=800",
+      "description": "Une jungle mystérieuse au clair de lune, une silhouette qui joue de la flûte, des serpents qui sortent de l'ombre. Rousseau n'a jamais quitté la France : il a tout imaginé.",
+      "anecdotes": [
+        { "text": "Rousseau n'a jamais vu de jungle : il s'inspirait des serres et du zoo de Paris.", "source": "Musée d'Orsay" },
+        { "text": "Peintre « du dimanche » moqué de son vivant, il inspire aujourd'hui des tas d'artistes.", "source": "Wikipédia" }
       ]
     },
     {
@@ -240,9 +453,9 @@
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Kiss%20-%20Gustav%20Klimt%20-%20Google%20Cultural%20Institute.jpg?width=800",
       "description": "Un couple enlacé dans un manteau d'or. Klimt a utilisé de la vraie feuille d'or, comme dans les tableaux religieux. Tout brille, tout est décoratif : c'est l'amour transformé en bijou.",
       "anecdotes": [
-        "C'est de la vraie feuille d'or collée sur la toile, comme sur les icônes religieuses.",
-        "Klimt vivait entouré de chats qui se baladaient sur ses tableaux en cours de séchage.",
-        "Les motifs sont codés : des rectangles pour l'homme, des cercles pour la femme."
+        { "text": "C'est de la vraie feuille d'or collée sur la toile, comme sur les icônes religieuses.", "source": "Belvédère, Vienne" },
+        { "text": "Klimt vivait entouré de chats qui se baladaient sur ses tableaux en cours de séchage.", "source": "Wikipédia" },
+        { "text": "Les motifs sont codés : des rectangles pour l'homme, des cercles pour la femme.", "source": "Belvédère, Vienne" }
       ]
     }
   ]

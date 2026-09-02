@@ -10,6 +10,13 @@ import { el, debounce } from '../../core/utils.js';
 
 const SEARCH_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>`;
 
+/** Minuscule + sans accents, pour une recherche tolérante (« leonard » = « Léonard »). */
+const norm = (s) =>
+  String(s || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase();
+
 export function createFilterBar(data, onChange) {
   const artworks = data.artworks || [];
   const themes = (data.meta?.themes || []).map((t) => t.name);
@@ -27,7 +34,7 @@ export function createFilterBar(data, onChange) {
     placeholder: 'Rechercher une œuvre, un artiste…',
     'aria-label': 'Rechercher une œuvre ou un artiste',
     onInput: debounce(() => {
-      state.q = search.value.trim().toLowerCase();
+      state.q = norm(search.value.trim());
       apply();
     }, 140),
   });
@@ -96,10 +103,15 @@ export function createFilterBar(data, onChange) {
   ]);
 
   // --- Logique ---
+  // Recherche multi-mots (ET) sur titre, artiste, technique, thèmes, description.
+  const haystack = new Map(
+    artworks.map((a) => [
+      a,
+      norm([a.title, a.artist, a.technique, (a.themes || []).join(' '), a.description].join(' ')),
+    ])
+  );
   const matchQuery = (a) =>
-    !state.q ||
-    a.title.toLowerCase().includes(state.q) ||
-    a.artist.toLowerCase().includes(state.q);
+    !state.q || state.q.split(/\s+/).every((term) => (haystack.get(a) || '').includes(term));
 
   // Prédicats par facette (OU à l'intérieur d'une facette)
   const okThemes = (a) => state.themes.size === 0 || a.themes.some((t) => state.themes.has(t));
@@ -110,29 +122,32 @@ export function createFilterBar(data, onChange) {
 
   // Compteurs "disponibles" : pour chaque valeur, on compte les œuvres qui
   // passeraient les AUTRES facettes actives (+ la recherche) et cette valeur.
-  // Les valeurs à 0 sont grisées -> on guide vers les combinaisons possibles.
+  // Une valeur à 0 (aucune combinaison possible) est MASQUÉE — on ne voit
+  // que les couples réalisables. Une valeur cochée reste visible (pour la
+  // décocher). Une facette sans aucune valeur visible se masque entièrement.
+  function updateFacet(chips, facetEl, selSet, countFor) {
+    let visible = 0;
+    chips.forEach((c, name) => {
+      const n = countFor(name);
+      const selected = selSet.has(name);
+      c.count.textContent = n;
+      const hidden = n === 0 && !selected;
+      c.btn.classList.toggle('is-hidden', hidden);
+      if (!hidden) visible += 1;
+    });
+    if (facetEl) facetEl.hidden = visible === 0;
+  }
+
   function updateCounts() {
-    themeChips.forEach((c, name) => {
-      const n = artworks.filter(
-        (a) => matchQuery(a) && okTech(a) && okArtist(a) && a.themes.includes(name)
-      ).length;
-      c.count.textContent = n;
-      c.btn.classList.toggle('is-empty', n === 0);
-    });
-    techChips.forEach((c, name) => {
-      const n = artworks.filter(
-        (a) => matchQuery(a) && okThemes(a) && okArtist(a) && a.technique === name
-      ).length;
-      c.count.textContent = n;
-      c.btn.classList.toggle('is-empty', n === 0);
-    });
-    artistChips.forEach((c, name) => {
-      const n = artworks.filter(
-        (a) => matchQuery(a) && okThemes(a) && okTech(a) && a.artist === name
-      ).length;
-      c.count.textContent = n;
-      c.btn.classList.toggle('is-empty', n === 0);
-    });
+    updateFacet(themeChips, themeFacet, state.themes, (name) =>
+      artworks.filter((a) => matchQuery(a) && okTech(a) && okArtist(a) && a.themes.includes(name)).length
+    );
+    updateFacet(techChips, techFacet, state.techniques, (name) =>
+      artworks.filter((a) => matchQuery(a) && okThemes(a) && okArtist(a) && a.technique === name).length
+    );
+    updateFacet(artistChips, artistFacet, state.artists, (name) =>
+      artworks.filter((a) => matchQuery(a) && okThemes(a) && okTech(a) && a.artist === name).length
+    );
   }
 
   function syncPressed() {
@@ -169,24 +184,29 @@ export function createFilterBar(data, onChange) {
     apply();
   }
 
+  // Facettes (références gardées pour masquer une facette entièrement vide)
+  const themeFacet = el('div', { class: 'facet' }, [
+    el('span', { class: 'facet__label', text: 'Thèmes' }),
+    themeWrap,
+  ]);
+  const techFacet = el('div', { class: 'facet' }, [
+    el('span', { class: 'facet__label', text: 'Techniques' }),
+    techWrap,
+  ]);
+  const artistFacet = el('div', { class: 'facet' }, [
+    el('span', { class: 'facet__label', text: 'Artistes' }),
+    artistWrap,
+  ]);
+
   // Contenu repliable (recherche + facettes + effacer)
   const inner = el('div', { class: 'filterbar__inner' }, [
     el('div', { class: 'filterbar__search' }, [
       el('span', { class: 'filter-search__icon', html: SEARCH_ICON }),
       search,
     ]),
-    el('div', { class: 'facet' }, [
-      el('span', { class: 'facet__label', text: 'Thèmes' }),
-      themeWrap,
-    ]),
-    el('div', { class: 'facet' }, [
-      el('span', { class: 'facet__label', text: 'Techniques' }),
-      techWrap,
-    ]),
-    el('div', { class: 'facet' }, [
-      el('span', { class: 'facet__label', text: 'Artistes' }),
-      artistWrap,
-    ]),
+    themeFacet,
+    techFacet,
+    artistFacet,
     clearBtn,
   ]);
   const body = el('div', { class: 'filterbar__body' }, [inner]);

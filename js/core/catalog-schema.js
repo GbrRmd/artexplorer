@@ -54,6 +54,17 @@ const isStr = (v) => typeof v === 'string';
 const filled = (v) => isStr(v) && v.trim().length > 0;
 
 /**
+ * Normalise une anecdote vers { text, source }.
+ * Accepte une chaîne héritée (source vide) ou un objet { text, source }.
+ */
+export function normalizeAnecdote(an) {
+  if (isStr(an)) return { text: an.trim(), source: '' };
+  if (an && typeof an === 'object')
+    return { text: String(an.text || '').trim(), source: String(an.source || '').trim() };
+  return { text: '', source: '' };
+}
+
+/**
  * Valide une œuvre. Renvoie un tableau de messages en français
  * (tableau vide = valide).
  */
@@ -93,7 +104,9 @@ export function validateArtwork(a, { allIds = [] } = {}) {
   else {
     if (a.anecdotes.length > MAX_ANECDOTES)
       e.push(`Maximum ${MAX_ANECDOTES} anecdotes.`);
-    if (!a.anecdotes.every(filled)) e.push('Anecdotes : retirer les lignes vides.');
+    // Une anecdote = chaîne (héritée) ou objet { text, source }.
+    const texts = a.anecdotes.map((an) => (isStr(an) ? an : an && an.text));
+    if (!texts.every(filled)) e.push('Anecdotes : chaque anecdote doit avoir un texte.');
   }
   return e;
 }
@@ -120,10 +133,14 @@ export function validateCatalog(doc) {
 export function normalizeArtwork(a) {
   const out = {};
   for (const k of ARTWORK_KEY_ORDER) {
-    if (k === 'themes' || k === 'anecdotes')
+    if (k === 'themes')
       out[k] = (Array.isArray(a[k]) ? a[k] : [])
         .map((s) => (isStr(s) ? s.trim() : s))
         .filter(Boolean);
+    else if (k === 'anecdotes')
+      out[k] = (Array.isArray(a[k]) ? a[k] : [])
+        .map(normalizeAnecdote)
+        .filter((an) => an.text);
     else if (k === 'year') out[k] = Number(a.year);
     else out[k] = isStr(a[k]) ? a[k].trim() : a[k];
   }

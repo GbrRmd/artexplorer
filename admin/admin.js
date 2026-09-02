@@ -13,6 +13,7 @@ import {
   blankArtwork,
   validateArtwork,
   normalizeArtwork,
+  normalizeAnecdote,
   slugify,
   MAX_ANECDOTES,
 } from '../js/core/catalog-schema.js';
@@ -418,10 +419,23 @@ function buildForm() {
   const addAnec = el('button', { class: 'ad-btn', type: 'button', text: '+ Ajouter une anecdote' });
   function renderAnec() {
     anecBox.replaceChildren(
-      ...draft.anecdotes.map((txt, i) => {
-        const ta = el('textarea', { rows: '2' }, [txt]);
+      ...draft.anecdotes.map((an, i) => {
+        // Migre vers { text, source } en place (accepte les anciennes chaînes).
+        const cur = normalizeAnecdote(an);
+        draft.anecdotes[i] = cur;
+        const ta = el('textarea', { rows: '2', placeholder: 'Anecdote (langage ado)…' }, [cur.text]);
         ta.addEventListener('input', () => {
-          draft.anecdotes[i] = ta.value;
+          cur.text = ta.value;
+          renderFormErrors();
+        });
+        const src = el('input', {
+          type: 'text',
+          class: 'ad-anec__source',
+          placeholder: 'Source (musée, site, ouvrage…)',
+          value: cur.source,
+        });
+        src.addEventListener('input', () => {
+          cur.source = src.value;
           renderFormErrors();
         });
         const del = el('button', {
@@ -435,14 +449,17 @@ function buildForm() {
             renderFormErrors();
           },
         });
-        return el('div', { class: 'ad-anec__row' }, [ta, del]);
+        return el('div', { class: 'ad-anec__row' }, [
+          el('div', { class: 'ad-anec__fields' }, [ta, src]),
+          del,
+        ]);
       })
     );
     addAnec.disabled = draft.anecdotes.length >= MAX_ANECDOTES;
   }
   addAnec.addEventListener('click', () => {
     if (draft.anecdotes.length < MAX_ANECDOTES) {
-      draft.anecdotes.push('');
+      draft.anecdotes.push({ text: '', source: '' });
       renderAnec();
     }
   });

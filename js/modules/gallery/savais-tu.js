@@ -39,10 +39,16 @@ function openAnecdotes(art) {
   const anecdotes = art.anecdotes || [];
   let i = 0;
 
-  const text = el('p', { class: 'anec__text', text: anecdotes[0] });
+  const text = el('p', { class: 'anec__text' });
+  const source = el('span', { class: 'anec__source' });
   const counter = el('span', { class: 'anec__counter' });
   const render = () => {
-    text.textContent = anecdotes[i];
+    const cur = anecdotes[i];
+    const t = typeof cur === 'string' ? cur : (cur && cur.text) || '';
+    const s = typeof cur === 'string' ? '' : (cur && cur.source) || '';
+    text.textContent = t;
+    source.textContent = s ? `Source : ${s}` : '';
+    source.hidden = !s;
     counter.textContent =
       anecdotes.length > 1 ? `${i + 1} / ${anecdotes.length} — clique pour la suite` : '';
     // petite pulsation à chaque changement
@@ -88,6 +94,7 @@ function openAnecdotes(art) {
       el('div', { class: 'anec__bubble' }, [
         el('span', { class: 'anec__badge', text: '💡 LE SAVAIS-TU ?' }),
         text,
+        source,
         counter,
       ]),
       el('img', { class: 'anec__mascot', src: 'assets/mascot/samy.png', alt: 'Samy le raton' }),
