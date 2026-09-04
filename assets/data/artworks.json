@@ -34,34 +34,6 @@
       ]
     },
     {
-      "id": "lascaux-taureaux-copie",
-      "title": "Test",
-      "artist": "Artistes de la Préhistoire",
-      "year": -17000,
-      "technique": "Peinture rupestre",
-      "themes": [
-        "Animaux",
-        "Nature"
-      ],
-      "dominantColor": "#8a5a2b",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Great_Fire_London.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
-      "description": "Des animaux géants peints sur les parois d'une grotte, il y a 17 000 ans. Nos ancêtres n'avaient ni écriture ni villes, mais ils dessinaient déjà des chevaux et des taureaux à la lueur des flammes.",
-      "anecdotes": [
-        {
-          "text": "Ces peintures ont 17 000 ans : plus vieilles que l'écriture, que les villes, que tout ce que tu connais.",
-          "source": "Centre des monuments nationaux — Lascaux"
-        },
-        {
-          "text": "Découvertes en 1940 par quatre ados et leur chien Robot, qui a filé dans un trou.",
-          "source": "Ministère de la Culture"
-        },
-        {
-          "text": "La vraie grotte est fermée : notre souffle abîmait les couleurs. On visite une copie parfaite juste à côté.",
-          "source": "Centre des monuments nationaux — Lascaux"
-        }
-      ]
-    },
-    {
       "id": "nefertiti-buste",
       "title": "Le buste de Néfertiti",
       "artist": "Thoutmôsis (atelier)",
