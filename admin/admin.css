@@ -5,6 +5,11 @@
 
 * { box-sizing: border-box; }
 
+/* L'attribut [hidden] doit toujours l'emporter : sinon un display: de
+   classe (ex. .ad-editor { display: grid }) le neutralise et l'élément
+   « caché » reste affiché (l'overlay de l'éditeur bloquait la page). */
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
   font-family: var(--font-sans);
@@ -156,13 +161,15 @@ code {
   inset: 0;
   z-index: 50;
   background: rgba(0, 0, 0, 0.55);
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   padding: var(--space-4);
+  overflow: auto; /* si le panneau dépasse l'écran, l'overlay défile */
 }
 .ad-editor__panel {
   width: min(680px, 100%);
-  max-height: 90vh;
+  margin: auto; /* centré quand ça tient, défilable sinon */
   display: flex;
   flex-direction: column;
   background: var(--bg-1);

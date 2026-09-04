@@ -10,6 +10,9 @@
   padding: 0;
 }
 
+/* [hidden] doit toujours l'emporter sur un display: de classe. */
+[hidden] { display: none !important; }
+
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
