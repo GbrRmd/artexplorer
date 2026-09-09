@@ -773,6 +773,33 @@
           "source": "Belvédère, Vienne"
         }
       ]
+    },
+    {
+      "id": "composition-avec-grand-plan-rouge-jaune-noir-gris-et-bleu",
+      "title": "Composition avec grand plan rouge, jaune, noir, gris et bleu",
+      "artist": "Piet Mondrian",
+      "year": 1921,
+      "technique": "Huile",
+      "themes": [
+        "Abstrait",
+        "Modernisme",
+        "Géométrie",
+        "Couleur",
+        "Musique"
+      ],
+      "dominantColor": "#de121c",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/76/Piet_Mondriaan%2C_1921_-_Composition_en_rouge%2C_jaune%2C_bleu_et_noir.jpg?uselang=fr",
+      "description": "Pas de paysage ni d'histoire : Piet Mondrian ne garde que l'essentiel ! Peinte en 1921, cette toile associe des lignes noires et des rectangles colorés, dominés par un grand carré rouge intense. Son objectif ? Créer une harmonie et un rythme visuel parfaits uniquement grâce à la géométrie et aux couleurs primaires, sans imiter la réalité.",
+      "anecdotes": [
+        {
+          "text": "Pour créer un art « pur » et compréhensible par tous, Mondrian s'est imposé des règles très strictes. Il a banni de ses tableaux la perspective, les détails, mais aussi les lignes courbes et les diagonales : seuls les angles droits et les lignes droites avaient le droit d'exister sur sa toile.",
+          "source": "Wikipédia (Fernández García et al., Historia del Arte, 1990)."
+        },
+        {
+          "text": "Mondrian n'utilisait que le rouge, le jaune et le bleu pour représenter l'énergie et la réalité physique. Il y associait le noir, le blanc et le gris, qu'il appelait les « anti-couleurs », afin d'offrir des pauses visuelles et de faire vibrer les couleurs principales.",
+          "source": "Wikipédia (Kunstmuseum Den Haag & Brocvielle, 2013)."
+        }
+      ]
     }
   ]
 }
