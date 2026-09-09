@@ -1,13 +1,13 @@
 {
   "meta": {
     "version": 3,
-    "updatedAt": "2026-09-04",
+    "updatedAt": "2026-09-09",
     "note": "Catalogue d'Arts Plastiques — édité via /admin/. Les listes de thèmes / techniques sont dérivées à la lecture (js/core/catalog.js)."
   },
   "artworks": [
     {
       "id": "lascaux-taureaux",
-      "title": "Les taureaux de Lascaux",
+      "title": "Les taureaux de la grotte de Lascaux",
       "artist": "Artistes de la Préhistoire",
       "year": -17000,
       "technique": "Peinture rupestre",
