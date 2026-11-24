@@ -32,7 +32,7 @@ config.js             Config : source des données, dépôt (admin), Cloudinary 
 css/                  tokens / base / components (design system)
 js/core/              shell, registry, theme, utils, catalog(+schema)
 js/modules/gallery/   Module Galerie (voir plus bas)
-js/modules/ia/        Module "Comprendre l'IA" (placeholder)
+js/modules/ia/        Module "Comprendre l'IA" : parcours 6 étapes (steps/ + ia.css)
 assets/data/artworks.json   Catalogue (29 œuvres, anecdotes sourcées), édité via /admin/
 admin/               Atelier du catalogue (édition + publication GitHub) + GUIDE.md
 scripts/             validate-catalog.mjs (contrôle du JSON, aussi en CI)
