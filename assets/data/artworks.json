@@ -802,29 +802,30 @@
       ]
     },
     {
-      "id": "villegle-ach-alma-manetro",
-      "title": "Ach Alma Manetro",
+      "id": "villegle-rue-michel-le-comte",
+      "title": "Rue Michel Le Comte, septembre",
       "artist": "Jacques Villeglé",
-      "year": 1949,
+      "year": 1980,
       "technique": "Affiches lacérées",
       "themes": [
         "Ville",
         "Abstrait"
       ],
-      "dominantColor": "#b8892f",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ach%20Alma%20Manetro.jpg?width=800",
-      "description": "Pas de pinceau ici : Jacques Villeglé et son ami Raymond Hains ont arraché des affiches de concert collées sur une palissade de Paris, puis les ont recollées sur une toile. Les lettres déchirées forment des mots bizarres… qui deviennent le titre ! La rue devient l'atelier.",
+      "dominantColor": "#c9952a",
+      "imageUrl": "https://gbrrmd.github.io/artexplorer/assets/artworks/villegle-rue-michel-le-comte.jpg",
+      "credit": "Jacques Villeglé, Rue Michel Le Comte, septembre, 1980, affiches lacérées marouflées sur toile, 131 × 133 cm. © Galerie Georges-Philippe et Nathalie Vallois",
+      "description": "Concerts, films, super-héros… Jacques Villeglé a décollé tout un morceau de mur d'affiches dans une rue de Paris, déjà déchirées par les passants, puis l'a collé sur une toile. Les couches arrachées laissent voir les affiches du dessous : un vrai mille-feuille de la ville, plein de lettres et de couleurs.",
       "anecdotes": [
         {
-          "text": "Le titre est un puzzle : « Ach » vient de Bach, « Alma » de la salle du concert, et « Manetro » est un mot inventé par les lettres qui restaient.",
+          "text": "Le titre, c'est l'adresse et le mois où il a récupéré les affiches : rue Michel-Le-Comte, à Paris, en septembre 1980. Ses œuvres sont comme un carnet de voyage dans la ville.",
           "source": "Centre Pompidou, dossier « Jacques Villeglé »"
         },
         {
-          "text": "C'est la toute première affiche lacérée de l'histoire (1949), arrachée près de Montparnasse, à Paris.",
+          "text": "Il a commencé dès 1949, avec son ami Raymond Hains, en arrachant des affiches de concert près de Montparnasse : c'était la toute première affiche lacérée de l'histoire.",
           "source": "Centre Pompidou, dossier « Jacques Villeglé »"
         },
         {
-          "text": "Villeglé disait que les vrais auteurs, ce sont les passants anonymes qui ont déchiré les affiches. Il a appelé ça le « Lacéré anonyme ».",
+          "text": "Villeglé disait que les vrais auteurs, ce sont les passants anonymes qui ont déchiré les affiches. Il appelait ça le « Lacéré anonyme ».",
           "source": "Centre Pompidou, dossier « Jacques Villeglé »"
         }
       ]
@@ -840,7 +841,8 @@
         "Couleur"
       ],
       "dominantColor": "#1f4fa3",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Henri%20Matisse%20-%20Nu%20bleu%20II.jpg?width=800",
+      "imageUrl": "https://gbrrmd.github.io/artexplorer/assets/artworks/matisse-nu-bleu-ii.jpg",
+      "credit": "Henri Matisse, Nu bleu II, 1952, papiers gouachés découpés et collés sur papier marouflé sur toile, 103,8 × 86 cm. Centre Pompidou, Paris.",
       "description": "Une femme assise, toute bleue, faite de morceaux de papier. Matisse a d'abord peint des feuilles à la gouache, puis il les a découpées aux ciseaux et collées. Les petits espaces blancs entre les morceaux font sentir les articulations du corps : genoux, bras, épaules.",
       "anecdotes": [
         {
@@ -858,26 +860,27 @@
       ]
     },
     {
-      "id": "valerie-john-i-telman-nwe-ki-i-ble",
-      "title": "I telman nwè ki i blé",
+      "id": "valerie-john-beau-comme-interieur-temple",
+      "title": "Beau comme l'intérieur d'un temple",
       "artist": "Valérie John",
-      "year": 2023,
+      "year": 2021,
       "technique": "Papier tissé",
       "themes": [
         "Histoire",
         "Couleur"
       ],
       "dominantColor": "#22336b",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Val%C3%A9rie%20John%20-%20I%20telman%20nw%C3%A8%20ki%20i%20bl%C3%A9.jpg?width=800",
-      "description": "Un titre en créole : « Il fait si sombre que c'est bleu ». L'artiste martiniquaise Valérie John tisse du papier, le teint à l'indigo et y ajoute de l'or. Couche après couche, sans rien effacer, elle fabrique une œuvre-mémoire qui parle de l'histoire des Antilles et de l'Afrique.",
+      "imageUrl": "https://gbrrmd.github.io/artexplorer/assets/artworks/valerie-john-beau-comme-interieur-temple.jpg",
+      "credit": "Valérie John, Beau comme l'intérieur d'un temple. © Photo : JB Barret 2021",
+      "description": "Un immense mur de pagnes bleu indigo, avec des taches orange qui éclatent comme du soleil. Partout, des dizaines de petits carnets de papier tissé pendent à des crochets, comme des messages ou des souvenirs accrochés. L'artiste martiniquaise Valérie John y mêle tissu, papier et mémoire des Antilles et de l'Afrique.",
       "anecdotes": [
         {
           "text": "Valérie John est née à Fort-de-France en 1964. Elle a appris l'indigo et le pagne bogolan en voyageant au Sénégal, en Gambie, au Mali et en Mauritanie.",
           "source": "AWARE, fiche « Valérie John »"
         },
         {
-          "text": "L'or fait ressortir le noir-bleu de l'indigo : pour elle, c'est le signe de ce qui a résisté à la traite négrière.",
-          "source": "AWARE, fiche « Valérie John »"
+          "text": "Elle tisse le papier sur un métier, comme un tissu. Pour elle, le papier est une « matière de mémoire ».",
+          "source": "Centre Pompidou, « La mémoire aux teintes indigo de l'artiste Valérie John »"
         },
         {
           "text": "En 2025, elle a installé tout son atelier au Centre Pompidou, à Paris, pour l'exposition « Paris noir ».",

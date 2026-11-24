@@ -37,6 +37,8 @@ assets/data/artworks.json   Catalogue (29 œuvres, anecdotes sourcées), édité
 admin/               Atelier du catalogue (édition + publication GitHub) + GUIDE.md
 scripts/             validate-catalog.mjs (contrôle du JSON, aussi en CI)
 assets/mascot/        savais-tu.png (bouton), samy.png (raton overlay)
+assets/artworks/      images d'œuvres hébergées dans le dépôt (servies par Pages)
+assets/qr-site.png    QR code du site (bouton du menu -> js/core/qr.js, plein écran)
 ```
 
 ## Module Galerie — ce qui existe (P0→P2 faits)
@@ -46,7 +48,7 @@ assets/mascot/        savais-tu.png (bouton), samy.png (raton overlay)
 - **Recherche + filtres repliables** (`filters.js`) : recherche sans accents / multi-champs (titre, artiste, technique, thèmes, description) ; facettes Thèmes / Techniques / **Artistes** ; les valeurs sans combinaison possible sont **masquées** (on ne voit que les couples réalisables), et une facette entièrement vide disparaît ; barre fermée par défaut.
 - **3 vues** (`js/modules/gallery/index.js`) : **Grille** · **Constellation** (bulles par thème) · **Frise** (`timeline.js`, chronologie verticale proportionnelle, an 0 → année courante).
 - Périodes historiques : `periods.js` (Préhistoire → Contemporain, couleurs, échelle). La vue Frise affiche une **légende de toutes les périodes** (celles sans œuvre restent grisées).
-- Données : `assets/data/artworks.json` (**29 œuvres**). Focus **cursus collège 6e-3e** (Préhistoire → 1908 : Lascaux, Néfertiti, Vénus de Milo, Michel-Ange, Vermeer, Hokusai, Manet, Seurat, Cézanne, Rodin, Klimt…) et **Caraïbes / DROM** (Lethière, roches gravées de Guadeloupe, Pissarro né à St-Thomas, Brunias en Dominique). Techniques variées (Huile, Estampe, Sculpture, Fresque, Lithographie, Tempera, Feuille d'or, Peinture rupestre, Gravure sur roche). Chaque `anecdotes[]` = objets `{ text, source }` (court, langage ado, **source citée**) ; le rendu et le schéma acceptent aussi les anciennes chaînes.
+- Données : `assets/data/artworks.json` (**29 œuvres**). Focus **cursus collège 6e-3e** (Préhistoire → 1908 : Lascaux, Néfertiti, Vénus de Milo, Michel-Ange, Vermeer, Hokusai, Manet, Seurat, Cézanne, Rodin, Klimt…) et **Caraïbes / DROM** (Lethière, roches gravées de Guadeloupe, Pissarro né à St-Thomas, Brunias en Dominique). Techniques variées (Huile, Estampe, Sculpture, Fresque, Lithographie, Tempera, Feuille d'or, Peinture rupestre, Gravure sur roche). Champ facultatif `credit` (légende + droits de l'image, affiché sous la fiche, éditable dans l'atelier). Chaque `anecdotes[]` = objets `{ text, source }` (court, langage ado, **source citée**) ; le rendu et le schéma acceptent aussi les anciennes chaînes.
 
 ## Données — P3 fait (JSON versionné + atelier)
 

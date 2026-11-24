@@ -168,3 +168,67 @@
     font-size: var(--text-base);
   }
 }
+
+/* =============================================================
+   QR code du site (plein écran, à scanner)
+   ============================================================= */
+.qr-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  animation: fade-in var(--dur-med) var(--ease-out);
+}
+.qr-overlay.is-closing {
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out);
+}
+.qr-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.qr-overlay__panel {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  width: min(92vw, 560px);
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  /* Toujours blanc : un QR code se scanne mieux sur fond clair */
+  background: #fff;
+  color: #16182e;
+  box-shadow: var(--shadow-lg);
+  animation: qr-in var(--dur-slow) var(--ease-spring);
+}
+@keyframes qr-in {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.qr-overlay__title {
+  color: #16182e;
+  font-size: var(--text-xl);
+  text-align: center;
+}
+.qr-overlay__img {
+  width: 100%;
+  max-height: 70vh;
+  height: auto;
+  object-fit: contain;
+}
+.qr-overlay__url {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: #4a4f75;
+  word-break: break-all;
+  text-align: center;
+}

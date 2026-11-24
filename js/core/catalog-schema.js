@@ -19,6 +19,7 @@ export const ARTWORK_KEY_ORDER = [
   'themes',
   'dominantColor',
   'imageUrl',
+  'credit',
   'description',
   'anecdotes',
 ];
@@ -45,6 +46,7 @@ export function blankArtwork() {
     themes: [],
     dominantColor: '#5a4a2f',
     imageUrl: '',
+    credit: '',
     description: '',
     anecdotes: [],
   };
@@ -98,6 +100,8 @@ export function validateArtwork(a, { allIds = [] } = {}) {
   else if (!/^https:\/\/\S+$/.test(a.imageUrl))
     e.push("URL de l'image : doit commencer par https://");
 
+  if (a.credit != null && !isStr(a.credit)) e.push('Crédit : texte attendu.');
+
   if (!filled(a.description)) e.push('Description manquante.');
 
   if (!Array.isArray(a.anecdotes)) e.push('Anecdotes : liste attendue.');
@@ -142,7 +146,11 @@ export function normalizeArtwork(a) {
         .map(normalizeAnecdote)
         .filter((an) => an.text);
     else if (k === 'year') out[k] = Number(a.year);
-    else out[k] = isStr(a[k]) ? a[k].trim() : a[k];
+    else if (k === 'credit') {
+      // Facultatif : absent du JSON s'il est vide (diff Git propre).
+      const c = isStr(a.credit) ? a.credit.trim() : '';
+      if (c) out[k] = c;
+    } else out[k] = isStr(a[k]) ? a[k].trim() : a[k];
   }
   return out;
 }

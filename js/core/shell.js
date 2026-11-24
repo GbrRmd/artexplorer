@@ -7,6 +7,7 @@
 import { $, el, haptic } from './utils.js';
 import { getModules, getModule } from './registry.js';
 import { toggleTheme } from './theme.js';
+import { initQr } from './qr.js';
 
 let current = null; // module actuellement monté
 
@@ -92,6 +93,9 @@ export function initShell() {
     toggleTheme();
     haptic(8);
   });
+
+  // QR code du site (agrandissable)
+  initQr();
 
   // Navigation avant/arrière du navigateur
   window.addEventListener('popstate', (e) => {

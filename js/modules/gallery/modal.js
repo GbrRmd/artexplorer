@@ -73,6 +73,7 @@ export function openModal(art, opts = {}) {
     el('p', { class: 'modal__artist', text: art.artist }),
     el('p', { class: 'modal__desc', text: art.description || '' }),
     tags,
+    art.credit ? el('p', { class: 'modal__credit', text: art.credit }) : null,
     buildFriseMini(art, onTimeline),
   ];
 
@@ -80,7 +81,7 @@ export function openModal(art, opts = {}) {
   const savaisTu = buildSavaisTu(art);
   if (savaisTu) media.append(savaisTu);
 
-  const content = el('div', { class: 'modal__content' }, contentChildren);
+  const content = el('div', { class: 'modal__content' }, contentChildren.filter(Boolean));
 
   const closeBtn = el('button', {
     class: 'modal__close',

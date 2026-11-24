@@ -394,6 +394,17 @@ function buildForm() {
   });
   syncPreview();
 
+  // Crédit / droits de l'image (facultatif)
+  const creditInput = el('input', {
+    type: 'text',
+    value: draft.credit || '',
+    placeholder: '© Photo : … / © Galerie …',
+  });
+  creditInput.addEventListener('input', () => {
+    draft.credit = creditInput.value;
+    renderFormErrors();
+  });
+
   // Couleur de repli
   const hex = /^#[0-9a-fA-F]{6}$/.test(draft.dominantColor) ? draft.dominantColor : '#5a4a2f';
   const colorPick = el('input', { type: 'color', value: hex });
@@ -477,6 +488,7 @@ function buildForm() {
       'Au moins un.'),
     field('URL de l’image', imgInput, 'Lien direct https vers une image (Wikimedia, etc.).'),
     field('Aperçu', preview),
+    field('Crédit de l’image', creditInput, 'Facultatif. Légende et droits affichés sous l’œuvre (ex. « © Photo : JB Barret 2021 »).'),
     field('Couleur de repli', el('div', { class: 'ad-color' }, [colorPick, colorText]),
       'Affichée si l’image ne charge pas.'),
     field('Description', descInput, 'Une phrase, langage ado.'),
