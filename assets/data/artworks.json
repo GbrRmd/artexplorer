@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": 3,
-    "updatedAt": "2026-09-09",
+    "updatedAt": "2026-11-24",
     "note": "Catalogue d'Arts Plastiques — édité via /admin/. Les listes de thèmes / techniques sont dérivées à la lecture (js/core/catalog.js)."
   },
   "artworks": [
@@ -798,6 +798,90 @@
         {
           "text": "Mondrian n'utilisait que le rouge, le jaune et le bleu pour représenter l'énergie et la réalité physique. Il y associait le noir, le blanc et le gris, qu'il appelait les « anti-couleurs », afin d'offrir des pauses visuelles et de faire vibrer les couleurs principales.",
           "source": "Wikipédia (Kunstmuseum Den Haag & Brocvielle, 2013)."
+        }
+      ]
+    },
+    {
+      "id": "villegle-ach-alma-manetro",
+      "title": "Ach Alma Manetro",
+      "artist": "Jacques Villeglé",
+      "year": 1949,
+      "technique": "Affiches lacérées",
+      "themes": [
+        "Ville",
+        "Abstrait"
+      ],
+      "dominantColor": "#b8892f",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ach%20Alma%20Manetro.jpg?width=800",
+      "description": "Pas de pinceau ici : Jacques Villeglé et son ami Raymond Hains ont arraché des affiches de concert collées sur une palissade de Paris, puis les ont recollées sur une toile. Les lettres déchirées forment des mots bizarres… qui deviennent le titre ! La rue devient l'atelier.",
+      "anecdotes": [
+        {
+          "text": "Le titre est un puzzle : « Ach » vient de Bach, « Alma » de la salle du concert, et « Manetro » est un mot inventé par les lettres qui restaient.",
+          "source": "Centre Pompidou, dossier « Jacques Villeglé »"
+        },
+        {
+          "text": "C'est la toute première affiche lacérée de l'histoire (1949), arrachée près de Montparnasse, à Paris.",
+          "source": "Centre Pompidou, dossier « Jacques Villeglé »"
+        },
+        {
+          "text": "Villeglé disait que les vrais auteurs, ce sont les passants anonymes qui ont déchiré les affiches. Il a appelé ça le « Lacéré anonyme ».",
+          "source": "Centre Pompidou, dossier « Jacques Villeglé »"
+        }
+      ]
+    },
+    {
+      "id": "matisse-nu-bleu-ii",
+      "title": "Nu bleu II",
+      "artist": "Henri Matisse",
+      "year": 1952,
+      "technique": "Papiers découpés",
+      "themes": [
+        "Corps",
+        "Couleur"
+      ],
+      "dominantColor": "#1f4fa3",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Henri%20Matisse%20-%20Nu%20bleu%20II.jpg?width=800",
+      "description": "Une femme assise, toute bleue, faite de morceaux de papier. Matisse a d'abord peint des feuilles à la gouache, puis il les a découpées aux ciseaux et collées. Les petits espaces blancs entre les morceaux font sentir les articulations du corps : genoux, bras, épaules.",
+      "anecdotes": [
+        {
+          "text": "La légende raconte que la silhouette aurait été découpée d'un seul coup de ciseaux !",
+          "source": "Centre Pompidou, « Focus sur Nu bleu II d'Henri Matisse »"
+        },
+        {
+          "text": "Il existe quatre « Nus bleus », tous faits en 1952 dans l'atelier de Matisse à Nice.",
+          "source": "Centre Pompidou, « Focus sur Nu bleu II d'Henri Matisse »"
+        },
+        {
+          "text": "À la fin de sa vie, malade et souvent en fauteuil, Matisse « dessinait avec des ciseaux » plutôt qu'avec un pinceau.",
+          "source": "Centre Pompidou ; Musée Matisse, Nice"
+        }
+      ]
+    },
+    {
+      "id": "valerie-john-i-telman-nwe-ki-i-ble",
+      "title": "I telman nwè ki i blé",
+      "artist": "Valérie John",
+      "year": 2023,
+      "technique": "Papier tissé",
+      "themes": [
+        "Histoire",
+        "Couleur"
+      ],
+      "dominantColor": "#22336b",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Val%C3%A9rie%20John%20-%20I%20telman%20nw%C3%A8%20ki%20i%20bl%C3%A9.jpg?width=800",
+      "description": "Un titre en créole : « Il fait si sombre que c'est bleu ». L'artiste martiniquaise Valérie John tisse du papier, le teint à l'indigo et y ajoute de l'or. Couche après couche, sans rien effacer, elle fabrique une œuvre-mémoire qui parle de l'histoire des Antilles et de l'Afrique.",
+      "anecdotes": [
+        {
+          "text": "Valérie John est née à Fort-de-France en 1964. Elle a appris l'indigo et le pagne bogolan en voyageant au Sénégal, en Gambie, au Mali et en Mauritanie.",
+          "source": "AWARE, fiche « Valérie John »"
+        },
+        {
+          "text": "L'or fait ressortir le noir-bleu de l'indigo : pour elle, c'est le signe de ce qui a résisté à la traite négrière.",
+          "source": "AWARE, fiche « Valérie John »"
+        },
+        {
+          "text": "En 2025, elle a installé tout son atelier au Centre Pompidou, à Paris, pour l'exposition « Paris noir ».",
+          "source": "Centre Pompidou, « La mémoire aux teintes indigo de l'artiste Valérie John »"
         }
       ]
     }
