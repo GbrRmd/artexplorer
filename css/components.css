@@ -232,3 +232,29 @@
   word-break: break-all;
   text-align: center;
 }
+
+/* Bouton QR du menu : icône + mot « QR », bien repérable */
+.icon-btn.qr-btn {
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 var(--space-3) 0 10px;
+  font-weight: 800;
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--gradient-brand);
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
+}
+.icon-btn.qr-btn:hover {
+  background: var(--gradient-brand);
+}
+.icon-btn.qr-btn:hover .icon {
+  transform: none;
+}
+.icon-btn.qr-btn .icon {
+  width: 20px;
+  height: 20px;
+}
