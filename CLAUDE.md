@@ -65,8 +65,15 @@ Firestore reste une option si un jour édition sans redéploiement multi-rédact
 - **`scripts/validate-catalog.mjs`** (`npm run validate`) + workflow
   `.github/workflows/validate-catalog.yml` : filet de sécurité au push.
 
-Plan restant : **P4** pipeline Cloudinary images (upload non signé dans l'atelier) →
-**P5** module IA → P6+.
+## Module « Comprendre l'IA » — P5 (première version)
+
+Parcours en 6 étapes (`js/modules/ia/steps/`, une étape = `{id, emoji, title, short, subtitle, render(root) -> cleanup}`),
+tout simulé en local (aucun appel réseau) : 1. IA ou pas IA (tri) · 2. Entraîne ta propre IA (couleurs
+chaudes/froides, plus proches voisins, biais) · 3. Chatbot (découpage en morceaux + mot suivant + température)
+· 4. Images (débruitage façon diffusion + débat droits d'auteur) · 5. Quiz vrai/faux · 6. Bons réflexes + défi.
+Samy (mascotte) guide chaque étape. Étape courante mémorisée en localStorage (préférence d'interface).
+
+Plan restant : **P4** pipeline Cloudinary images (upload non signé dans l'atelier) → enrichir P5 → P6+.
 
 ## Conventions
 

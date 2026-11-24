@@ -10,6 +10,15 @@ function esc(s = '') {
   );
 }
 
+/** Initiales d'un nom d'artiste (« Jacques Villeglé » -> « JV ») */
+function initials(name = '') {
+  const words = String(name)
+    .replace(/\(.*?\)/g, '')
+    .split(/[\s-]+/)
+    .filter((w) => w && w[0] === w[0].toUpperCase() && /\p{L}/u.test(w[0]));
+  return (words.slice(0, 2).map((w) => w[0]).join('') || '?').toUpperCase();
+}
+
 /** Renvoie le markup (image + emoji de repli) d'une œuvre */
 export function mediaMarkup(art, { size = 'card' } = {}) {
   const alt = esc(`${art.title} — ${art.artist}`);
@@ -25,7 +34,9 @@ export function mediaMarkup(art, { size = 'card' } = {}) {
   // ou en cas d'erreur, mais recouvert dès que l'image est chargée.
   return (
     backdrop +
-    `<div class="artcard__fallback" aria-hidden="true">🖼️</div>` +
+    `<div class="artcard__fallback" aria-hidden="true">` +
+    `<span class="artcard__monogram">${esc(initials(art.artist))}</span>` +
+    `<span class="artcard__fb-note">Image à venir</span></div>` +
     `<img class="artcard__img" src="${esc(art.imageUrl)}" alt="${alt}" loading="${loading}" decoding="async" />`
   );
 }

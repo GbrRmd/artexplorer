@@ -18,11 +18,12 @@ function buildNav() {
       {
         class: 'modnav__btn',
         'data-module': m.id,
+        title: m.title,
         onClick: () => navigate(m.id),
       },
       [
         el('span', { class: 'icon-wrap', html: m.icon || '' }),
-        el('span', { class: 'label', text: m.title }),
+        el('span', { class: 'label', text: m.shortTitle || m.title }),
       ]
     );
     nav.append(btn);
@@ -76,6 +77,12 @@ async function navigate(id, { push = true } = {}) {
 }
 
 export function initShell() {
+  // Header : fond de verre dès qu'on défile (lisibilité du contenu dessous)
+  const header = document.querySelector('.shell__header');
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
   // Injecte la navigation dans le header
   const navSlot = $('#nav-slot');
   navSlot.append(buildNav());

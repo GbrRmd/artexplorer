@@ -65,6 +65,6 @@ export function friseBounds(year) {
 /** Libellé court et laïc d'une année (ex. "an 0", "1665", "17000 av."). */
 export function formatYear(y) {
   if (y === 0) return 'an 0';
-  if (y < 0) return `${Math.abs(y).toLocaleString('fr-FR')} av.`;
+  if (y < 0) return `${Math.abs(y).toLocaleString('fr-FR')} av. J.-C.`;
   return String(y);
 }

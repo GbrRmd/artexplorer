@@ -62,7 +62,7 @@ export function openModal(art, opts = {}) {
     'div',
     { class: 'modal__tags' },
     [
-      el('span', { class: 'pill', text: `🗓️ ${art.year}` }),
+      el('span', { class: 'pill', text: `🗓️ ${formatYear(art.year)}` }),
       el('span', { class: 'pill', text: `🎨 ${art.technique}` }),
       ...(art.themes || []).map((t) => el('span', { class: 'pill', text: `#${t}` })),
     ]
